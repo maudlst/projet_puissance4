@@ -18,7 +18,7 @@ void gameDisplay( int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 }
 
 
-bool play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer )
+tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer)
 {
     bool lbPlayed, lbIsLoopFinished;
     int lnBoxBoard, liIndexRow ;
@@ -36,10 +36,13 @@ bool play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay,
             lbPlayed = true;
             lbIsLoopFinished = true;
         }
-        liIndexRow++;
+        else 
+        {
+            liIndexRow++;
+        }
     }
 
-    return lbPlayed;
+    return {lbPlayed, liIndexRow};
 }
 
 

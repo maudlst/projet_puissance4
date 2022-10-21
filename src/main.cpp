@@ -12,6 +12,7 @@ int main(){
     int gvBoardGame[5][5];
     int giRow, giColomn, gnCurrentPlayer, gnSelectedColomn;
     bool gbIsGameFinished;
+    
 
     for (giRow =0; giRow <5; giRow++)
     {
