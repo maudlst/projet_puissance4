@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <iostream>
 
-#define cnPLAYER1 1
-#define cnPLAYER2 2
 
 using namespace std;
 
@@ -24,7 +22,7 @@ int main(){
 
     gameDisplay(gvBoardGame);
     gbIsGameFinished =false;
-    gnCurrentPlayer = cnPLAYER1;
+    gnCurrentPlayer = cnIA;
 
     while(!gbIsGameFinished)
     {
@@ -37,23 +35,23 @@ int main(){
         gameDisplay(gvBoardGame);
         gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
-        if(gnCurrentPlayer == cnPLAYER1)
+        if(gnCurrentPlayer == cnIA)
         {
-            gnCurrentPlayer = cnPLAYER2;
+            gnCurrentPlayer = cnPLAYER;
         }
         else 
         {
-            gnCurrentPlayer = cnPLAYER1;
+            gnCurrentPlayer = cnIA;
         }
     }
 
-    if(gnCurrentPlayer == cnPLAYER1)
+    if(gnCurrentPlayer == cnIA)
     {
-        cout << "Le gagnant est le joueur "<< cnPLAYER2 << endl;
+        cout << "Le gagnant est le joueur "<< cnPLAYER << endl;
     }
     else 
     {
-        cout << "Le gagnant est le joueur " << cnPLAYER1 << endl;
+        cout << "Le gagnant est le joueur " << cnIA << endl;
     }
 
     return 0;

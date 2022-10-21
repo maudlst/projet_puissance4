@@ -1,4 +1,6 @@
 #include "boardGame.hpp"
+
+
 using namespace std;
 
 void gameDisplay( int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
@@ -176,4 +178,65 @@ bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
         lbIsAlignment = true;
     }
     return lbIsAlignment;
+}
+
+int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+{
+    int lnColumnOfBestMoveFor1 = -1;
+    int lnBestMoveValueFor1 = 0;
+    int lnColumnOfBestMoveFor2 = -1;
+    int lnBestMoveValueFor2 = 0;
+    
+
+    int lnRowOfPiece;
+    bool lbIsPiecePlayed;
+    int lnValuePosition;
+    for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
+    {
+        [lbIsPiecePlayed, lnRowOfPiece] = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
+        lnValuePosition = calculatePositionValue(pvBoardGame, cnIA);
+        if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
+        {
+            lnBestMoveValueFor1 = lnValuePosition; // la nouvelle meilleure valeur
+            lnColumnOfBestMoveFor1 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+        }
+        else 
+        {
+            // la meilleure valeur ne change pas
+        }
+        pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
+    }
+
+
+    for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
+    {
+        [lbIsPiecePlayed, lnRowOfPiece] = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
+        lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER);
+        if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
+        {
+            lnBestMoveValueFor2 = lnValuePosition; // la nouvelle meilleure valeur
+            lnColumnOfBestMoveFor2 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+        }
+        else 
+        {
+            // la meilleure valeur ne change pas
+        }
+        pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
+    }
+
+    if (lnBestMoveValueFor1 >= lnBestMoveValueFor2)
+    {
+        return lnColumnOfBestMoveFor1;
+    }
+    else 
+    {
+        return lnColumnOfBestMoveFor2;
+    }
+
+    return 0;
+}
+
+int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur)
+{
+
 }
