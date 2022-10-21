@@ -44,7 +44,7 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
         }
     }
 
-    return {lbPlayed, liIndexRow};
+    return make_tuple(lbPlayed, liIndexRow);
 }
 
 
@@ -240,6 +240,5 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
 {
 
 
-    return int
-
+    return 0;
 }
