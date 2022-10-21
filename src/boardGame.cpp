@@ -193,7 +193,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     int lnValuePosition;
     for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
     {
-        [lbIsPiecePlayed, lnRowOfPiece] = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
+        std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
         lnValuePosition = calculatePositionValue(pvBoardGame, cnIA);
         if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
         {
@@ -210,7 +210,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 
     for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
     {
-        [lbIsPiecePlayed, lnRowOfPiece] = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
+        std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
         lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER);
         if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
         {
@@ -238,5 +238,8 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 
 int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur)
 {
+
+
+    return int
 
 }
