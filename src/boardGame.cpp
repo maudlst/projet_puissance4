@@ -191,10 +191,11 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     int lnRowOfPiece;
     bool lbIsPiecePlayed;
     int lnValuePosition;
-    for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
+    for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
-        lnValuePosition = calculatePositionValue(pvBoardGame, cnIA);
+        lnValuePosition = calculatePositionValue(pvBoardGame, cnIA, lnRowOfPiece, liIndexColumn);
+        cout << liIndexColumn << " : " << lnValuePosition << endl;
         if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
         {
             lnBestMoveValueFor1 = lnValuePosition; // la nouvelle meilleure valeur
@@ -206,12 +207,13 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
+    cout << cnIA << " : " << lnColumnOfBestMoveFor1 << " : " << lnBestMoveValueFor1 << endl;
 
-
-    for(int liIndexColumn = 0; liIndexColumn < 4; liIndexColumn++)
+    for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
-        lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER);
+        lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER, lnRowOfPiece, liIndexColumn);
+        cout << liIndexColumn << " : " << lnValuePosition << endl;
         if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
         {
             lnBestMoveValueFor2 = lnValuePosition; // la nouvelle meilleure valeur
@@ -223,6 +225,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
+    cout << cnPLAYER << " : " << lnColumnOfBestMoveFor2 << " : " << lnBestMoveValueFor2 << endl;
 
     if (lnBestMoveValueFor1 >= lnBestMoveValueFor2)
     {
@@ -232,13 +235,153 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     {
         return lnColumnOfBestMoveFor2;
     }
-
-    return 0;
 }
 
-int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur)
+int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur, int pnRowOfMove, int pnColumnOfMove)
 {
+    int lnPositionValue;
+    int lnDirectionValue;
 
+    int lnOpposingPlayer;
+    int lnActualRow;
+    int lnActualColumn;
+    int lvMemoEmpty[3][3] = {{0}}; 
+    int lvMemoPlayerTerritory[3][3] = {{0}};
+    int lnRangeFromPiece;
+    lvMemoEmpty[1][1] = -1; 
+    lvMemoPlayerTerritory[1][1] = -1; 
+    gameDisplay(pvBoardGame);
 
-    return 0;
+    if (pnPlayeur == cnIA)
+    {
+        lnOpposingPlayer = cnPLAYER;
+    }
+    else 
+    {
+        lnOpposingPlayer = cnIA;
+    }
+    // cout << lnOpposingPlayer << endl;
+
+    int lnValueOfPosition = 0;
+    for (int liDeltaRow = -1; liDeltaRow <= 1; liDeltaRow++)
+    {
+        for (int liDeltaColumn = -1; liDeltaColumn <= 1; liDeltaColumn++)
+        {
+            if (liDeltaRow == 0 && liDeltaColumn == 0)
+            {
+                // ne rien faire
+            }
+            else 
+            {
+                lnActualRow = pnRowOfMove + liDeltaRow;
+                lnActualColumn = pnColumnOfMove + liDeltaColumn;
+                lnRangeFromPiece = 1;
+                // cout << "HEYE" << lnActualRow << lnActualColumn << pvBoardGame[lnActualRow][lnActualColumn] << endl;
+                while ((lnActualRow < cnSIZE_OF_BOARD && lnActualRow >= 0) && (lnActualColumn < cnSIZE_OF_BOARD && lnActualColumn >= 0) && (pvBoardGame[lnActualRow][lnActualColumn] != lnOpposingPlayer) && lnRangeFromPiece < 4)
+                {
+                    cout << lnActualRow << lnActualColumn << endl;
+                    if (pvBoardGame[lnActualRow][lnActualColumn] == 0)
+                    {
+                        lvMemoEmpty[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] += 1;
+                    }
+                    else 
+                    {
+                        if (lvMemoEmpty[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] != 0)
+                        {
+                            lvMemoEmpty[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] += 1;
+                        }
+                        else 
+                        {
+                            lvMemoPlayerTerritory[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] += 1;
+                        }
+                    }
+                    lnActualRow += liDeltaRow;
+                    lnActualColumn += liDeltaColumn;
+                    lnRangeFromPiece++;
+                }
+            }
+        }
+    }
+    // TESTING
+    // cout << "lvMemoEmpty" << endl;
+    // for (int i = 0; i<3; i++)
+    // {
+    //     for (int j = 0; j<3; j++)
+    //         cout << "dLig " << (i-cnOffsetIndex1) << " dCol " << (j-cnOffsetIndex1) << "\t\t" << lvMemoEmpty[i][j] << endl;
+    //     cout << endl;
+    // }
+
+    // cout << "lvMemoPlayerTerritory" << endl;
+    // for (int i = 0; i<3; i++)
+    // {
+    //     for (int j = 0; j<3; j++)
+    //        cout << "dLig " << (i-cnOffsetIndex1) << " dCol " << (j-cnOffsetIndex1) << "\t\t" << lvMemoPlayerTerritory[i][j] << endl;
+    //     cout << endl;
+    // }
+
+    if ((lvMemoEmpty[0][0] + lvMemoEmpty[2][2] + lvMemoPlayerTerritory[0][0] + lvMemoPlayerTerritory[2][2]) >= 3)
+    {
+        lnDirectionValue = 1 + lvMemoPlayerTerritory[0][0] + lvMemoPlayerTerritory[2][2];
+        if (lnDirectionValue >= 4)
+            return numeric_limits<int>::max();
+        else if (lnDirectionValue == 3)
+            lnPositionValue += cnValueOf3Piece;
+        else if (lnDirectionValue == 2)
+            lnPositionValue += cnValueOf2Piece;
+        else
+            lnPositionValue += cnValueOf1Piece;
+    }
+    else 
+    {
+
+    }
+    if ((lvMemoEmpty[1][0] + lvMemoEmpty[1][2] + lvMemoPlayerTerritory[1][0] + lvMemoPlayerTerritory[1][2]) >= 3)
+    {
+        lnDirectionValue = 1 + lvMemoPlayerTerritory[1][0] + lvMemoPlayerTerritory[1][2];
+        if (lnDirectionValue >= 4)
+            return numeric_limits<int>::max();
+        else if (lnDirectionValue == 3)
+            lnPositionValue += cnValueOf3Piece;
+        else if (lnDirectionValue == 2)
+            lnPositionValue += cnValueOf2Piece;
+        else
+            lnPositionValue += cnValueOf1Piece;
+    }
+    else 
+    {
+
+    }
+    if ((lvMemoEmpty[2][0] + lvMemoEmpty[0][2] + lvMemoPlayerTerritory[2][0] + lvMemoPlayerTerritory[0][2]) >= 3)
+    {
+        lnDirectionValue = 1 + lvMemoPlayerTerritory[2][0] + lvMemoPlayerTerritory[0][2];
+        if (lnDirectionValue >= 4)
+            return numeric_limits<int>::max();
+        else if (lnDirectionValue == 3)
+            lnPositionValue += cnValueOf3Piece;
+        else if (lnDirectionValue == 2)
+            lnPositionValue += cnValueOf2Piece;
+        else
+            lnPositionValue += cnValueOf1Piece;
+    }
+    else 
+    {
+
+    }
+    if ((lvMemoEmpty[0][1] + lvMemoEmpty[2][1] + lvMemoPlayerTerritory[0][1] + lvMemoPlayerTerritory[2][1]) >= 3)
+    {
+        lnDirectionValue = 1 + lvMemoPlayerTerritory[0][1] + lvMemoPlayerTerritory[2][1];
+        if (lnDirectionValue >= 4)
+            return numeric_limits<int>::max();
+        else if (lnDirectionValue == 3)
+            lnPositionValue += cnValueOf3Piece;
+        else if (lnDirectionValue == 2)
+            lnPositionValue += cnValueOf2Piece;
+        else
+            lnPositionValue += cnValueOf1Piece;
+    }
+    else 
+    {
+
+    }
+    return lnPositionValue;
 }
