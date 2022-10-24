@@ -72,6 +72,11 @@ bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPla
         lbIsFinished = true;
         cout << "partie gagnée" << endl;
     }
+    else if (isBoardGameFull(pvBoardGame))
+    {
+        lbIsFinished = true;
+        cout << "match nul" << endl;
+    }
     else 
     {
         lbIsFinished = false;
@@ -178,6 +183,24 @@ bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
         lbIsAlignment = true;
     }
     return lbIsAlignment;
+}
+
+bool isBoardGameFull(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+{
+    bool lbIsBoardGameFull;
+    int liColomnIndex;
+
+    lbIsBoardGameFull = true;
+    for (liColomnIndex = 0 ; liColomnIndex < cnSIZE_OF_BOARD ; liColomnIndex++)
+    {
+        if(pvBoardGame[cnSIZE_OF_BOARD-1][liColomnIndex] == 0)
+        {
+            lbIsBoardGameFull = false; // si on a un zero dans la derniere ligne le plateau n est pas plein
+        }
+        else {}// on ne s occupe pas des autres valeur
+    }
+
+    return lbIsBoardGameFull;
 }
 
 int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
