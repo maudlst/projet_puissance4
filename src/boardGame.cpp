@@ -262,7 +262,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 
 int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur, int pnRowOfMove, int pnColumnOfMove)
 {
-    int lnPositionValue;
+    int lnPositionValue = 0;
     int lnDirectionValue;
 
     int lnOpposingPlayer;
@@ -285,7 +285,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     }
     // cout << lnOpposingPlayer << endl;
 
-    int lnValueOfPosition = 0;
+    // int lnValueOfPosition = 0;
     for (int liDeltaRow = -1; liDeltaRow <= 1; liDeltaRow++)
     {
         for (int liDeltaColumn = -1; liDeltaColumn <= 1; liDeltaColumn++)
@@ -325,86 +325,64 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
             }
         }
     }
-    // TESTING
-    // cout << "lvMemoEmpty" << endl;
-    // for (int i = 0; i<3; i++)
-    // {
-    //     for (int j = 0; j<3; j++)
-    //         cout << "dLig " << (i-cnOffsetIndex1) << " dCol " << (j-cnOffsetIndex1) << "\t\t" << lvMemoEmpty[i][j] << endl;
-    //     cout << endl;
-    // }
 
-    // cout << "lvMemoPlayerTerritory" << endl;
-    // for (int i = 0; i<3; i++)
-    // {
-    //     for (int j = 0; j<3; j++)
-    //        cout << "dLig " << (i-cnOffsetIndex1) << " dCol " << (j-cnOffsetIndex1) << "\t\t" << lvMemoPlayerTerritory[i][j] << endl;
-    //     cout << endl;
-    // }
-
-    if ((lvMemoEmpty[0][0] + lvMemoEmpty[2][2] + lvMemoPlayerTerritory[0][0] + lvMemoPlayerTerritory[2][2]) >= 3)
+    lnDirectionValue = calculateValueDirection(lvMemoEmpty[0][0], lvMemoEmpty[2][2], lvMemoPlayerTerritory[0][0], lvMemoPlayerTerritory[2][2]);
+    if (lnDirectionValue >= 0)
     {
-        lnDirectionValue = 1 + lvMemoPlayerTerritory[0][0] + lvMemoPlayerTerritory[2][2];
-        if (lnDirectionValue >= 4)
-            return numeric_limits<int>::max();
-        else if (lnDirectionValue == 3)
-            lnPositionValue += cnValueOf3Piece;
-        else if (lnDirectionValue == 2)
-            lnPositionValue += cnValueOf2Piece;
-        else
-            lnPositionValue += cnValueOf1Piece;
+        lnPositionValue += lnDirectionValue;
     }
     else 
     {
-
+        return numeric_limits<int>::max();
     }
-    if ((lvMemoEmpty[1][0] + lvMemoEmpty[1][2] + lvMemoPlayerTerritory[1][0] + lvMemoPlayerTerritory[1][2]) >= 3)
+    lnDirectionValue = calculateValueDirection(lvMemoEmpty[1][0], lvMemoEmpty[1][2], lvMemoPlayerTerritory[1][0], lvMemoPlayerTerritory[1][2]);
+    if (lnDirectionValue >= 0)
     {
-        lnDirectionValue = 1 + lvMemoPlayerTerritory[1][0] + lvMemoPlayerTerritory[1][2];
-        if (lnDirectionValue >= 4)
-            return numeric_limits<int>::max();
-        else if (lnDirectionValue == 3)
-            lnPositionValue += cnValueOf3Piece;
-        else if (lnDirectionValue == 2)
-            lnPositionValue += cnValueOf2Piece;
-        else
-            lnPositionValue += cnValueOf1Piece;
+        lnPositionValue += lnDirectionValue;
     }
     else 
     {
-
+        return numeric_limits<int>::max();
     }
-    if ((lvMemoEmpty[2][0] + lvMemoEmpty[0][2] + lvMemoPlayerTerritory[2][0] + lvMemoPlayerTerritory[0][2]) >= 3)
+    lnDirectionValue = calculateValueDirection(lvMemoEmpty[2][0], lvMemoEmpty[0][2], lvMemoPlayerTerritory[2][0], lvMemoPlayerTerritory[0][2]);
+    if (lnDirectionValue >= 0)
     {
-        lnDirectionValue = 1 + lvMemoPlayerTerritory[2][0] + lvMemoPlayerTerritory[0][2];
-        if (lnDirectionValue >= 4)
-            return numeric_limits<int>::max();
-        else if (lnDirectionValue == 3)
-            lnPositionValue += cnValueOf3Piece;
-        else if (lnDirectionValue == 2)
-            lnPositionValue += cnValueOf2Piece;
-        else
-            lnPositionValue += cnValueOf1Piece;
+        lnPositionValue += lnDirectionValue;
     }
     else 
     {
-
+        return numeric_limits<int>::max();
     }
-    if ((lvMemoEmpty[0][1] + lvMemoEmpty[2][1] + lvMemoPlayerTerritory[0][1] + lvMemoPlayerTerritory[2][1]) >= 3)
+    lnDirectionValue = calculateValueDirection(lvMemoEmpty[0][1], lvMemoEmpty[2][1], lvMemoPlayerTerritory[0][1], lvMemoPlayerTerritory[2][1]);
+    if (lnDirectionValue >= 0)
     {
-        lnDirectionValue = 1 + lvMemoPlayerTerritory[0][1] + lvMemoPlayerTerritory[2][1];
-        if (lnDirectionValue >= 4)
-            return numeric_limits<int>::max();
-        else if (lnDirectionValue == 3)
-            lnPositionValue += cnValueOf3Piece;
-        else if (lnDirectionValue == 2)
-            lnPositionValue += cnValueOf2Piece;
-        else
-            lnPositionValue += cnValueOf1Piece;
+        lnPositionValue += lnDirectionValue;
     }
     else 
     {
-
+        return numeric_limits<int>::max();
     }
+    
     return lnPositionValue;
+}
+
+int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2)
+{
+    int lnDirectionValue;
+    if ((pnValueEmpty1 + pnValueEmpty2 + pnValuePT1 + pnValuePT2) >= 3)
+    {
+        lnDirectionValue = 1 + pnValuePT1 + pnValuePT2;
+        if (lnDirectionValue >= 4)
+            return -1;
+        else if (lnDirectionValue == 3)
+            return cnValueOf3Piece;
+        else if (lnDirectionValue == 2)
+            return cnValueOf2Piece;
+        else
+            return cnValueOf1Piece;
+    }
+    else 
+    {
+        return 500; // erreur si l'algo exécute ce else
+    }
 }
