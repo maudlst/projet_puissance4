@@ -147,11 +147,11 @@ bool isDiagonalAlignmentTRBL(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
             }
         }
     }
-    else if (pvBoardGame[1][0]== pnPlayer && pvBoardGame[2][1]== pnPlayer && pvBoardGame[3][2]== pnPlayer && pvBoardGame[4][3]== pnPlayer )
+    if (pvBoardGame[1][0]== pnPlayer && pvBoardGame[2][1]== pnPlayer && pvBoardGame[3][2]== pnPlayer && pvBoardGame[4][3]== pnPlayer )
     {
         lbIsAlignment = true;
     }
-    else if (pvBoardGame[0][1]== pnPlayer && pvBoardGame[1][2]== pnPlayer && pvBoardGame[2][3]== pnPlayer && pvBoardGame[3][4]== pnPlayer )
+    if (pvBoardGame[0][1]== pnPlayer && pvBoardGame[1][2]== pnPlayer && pvBoardGame[2][3]== pnPlayer && pvBoardGame[3][4]== pnPlayer )
     {
         lbIsAlignment = true;
     }
@@ -174,11 +174,11 @@ bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
             }
         }
     }
-    else if (pvBoardGame[3][0]== pnPlayer && pvBoardGame[2][1]== pnPlayer && pvBoardGame[1][2]== pnPlayer && pvBoardGame[0][3]== pnPlayer )
+    if (pvBoardGame[3][0]== pnPlayer && pvBoardGame[2][1]== pnPlayer && pvBoardGame[1][2]== pnPlayer && pvBoardGame[0][3]== pnPlayer )
     {
         lbIsAlignment = true;
     }
-    else if (pvBoardGame[4][1]== pnPlayer && pvBoardGame[3][2]== pnPlayer && pvBoardGame[2][3]== pnPlayer && pvBoardGame[1][4]== pnPlayer )
+    if (pvBoardGame[4][1]== pnPlayer && pvBoardGame[3][2]== pnPlayer && pvBoardGame[2][3]== pnPlayer && pvBoardGame[1][4]== pnPlayer )
     {
         lbIsAlignment = true;
     }
@@ -218,7 +218,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
         lnValuePosition = calculatePositionValue(pvBoardGame, cnIA, lnRowOfPiece, liIndexColumn);
-        cout << liIndexColumn << " : " << lnValuePosition << endl;
+        //cout << liIndexColumn << " : " << lnValuePosition << endl;
         if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
         {
             lnBestMoveValueFor1 = lnValuePosition; // la nouvelle meilleure valeur
@@ -230,13 +230,13 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
-    cout << cnIA << " : " << lnColumnOfBestMoveFor1 << " : " << lnBestMoveValueFor1 << endl;
+    //cout << cnIA << " : " << lnColumnOfBestMoveFor1 << " : " << lnBestMoveValueFor1 << endl;
 
     for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
         lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER, lnRowOfPiece, liIndexColumn);
-        cout << liIndexColumn << " : " << lnValuePosition << endl;
+       // cout << liIndexColumn << " : " << lnValuePosition << endl;
         if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
         {
             lnBestMoveValueFor2 = lnValuePosition; // la nouvelle meilleure valeur
@@ -248,7 +248,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
-    cout << cnPLAYER << " : " << lnColumnOfBestMoveFor2 << " : " << lnBestMoveValueFor2 << endl;
+   // cout << cnPLAYER << " : " << lnColumnOfBestMoveFor2 << " : " << lnBestMoveValueFor2 << endl;
 
     if (lnBestMoveValueFor1 >= lnBestMoveValueFor2)
     {
@@ -273,7 +273,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     int lnRangeFromPiece;
     lvMemoEmpty[1][1] = -1; 
     lvMemoPlayerTerritory[1][1] = -1; 
-    gameDisplay(pvBoardGame);
+   // gameDisplay(pvBoardGame);
 
     if (pnPlayeur == cnIA)
     {
@@ -302,7 +302,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
                 // cout << "HEYE" << lnActualRow << lnActualColumn << pvBoardGame[lnActualRow][lnActualColumn] << endl;
                 while ((lnActualRow < cnSIZE_OF_BOARD && lnActualRow >= 0) && (lnActualColumn < cnSIZE_OF_BOARD && lnActualColumn >= 0) && (pvBoardGame[lnActualRow][lnActualColumn] != lnOpposingPlayer) && lnRangeFromPiece < 4)
                 {
-                    cout << lnActualRow << lnActualColumn << endl;
+                    //cout << lnActualRow << lnActualColumn << endl;
                     if (pvBoardGame[lnActualRow][lnActualColumn] == 0)
                     {
                         lvMemoEmpty[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] += 1;
