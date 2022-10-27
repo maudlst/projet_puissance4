@@ -50,6 +50,8 @@ int main(){
                 cin >> gnSelectedColomn;
                 gnSelectedColomn = gnSelectedColomn % 5;
                 tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame,gnSelectedColomn,gnCurrentPlayer);
+                if (!lbIsPlayed)
+                    cout << "Colonne Pleine !" << endl;
             }
             lbIsPlayed = false;
             gameDisplay(gvBoardGame);

@@ -217,16 +217,23 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
-        lnValuePosition = calculatePositionValue(pvBoardGame, cnIA, lnRowOfPiece, liIndexColumn);
-        //cout << liIndexColumn << " : " << lnValuePosition << endl;
-        if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
+        if (lbIsPiecePlayed)
         {
-            lnBestMoveValueFor1 = lnValuePosition; // la nouvelle meilleure valeur
-            lnColumnOfBestMoveFor1 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+            lnValuePosition = calculatePositionValue(pvBoardGame, cnIA, lnRowOfPiece, liIndexColumn);
+            //cout << liIndexColumn << " : " << lnValuePosition << endl;
+            if (lnBestMoveValueFor1 < lnValuePosition) // test la valeur de la position 
+            {
+                lnBestMoveValueFor1 = lnValuePosition; // la nouvelle meilleure valeur
+                lnColumnOfBestMoveFor1 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+            }
+            else 
+            {
+                // la meilleure valeur ne change pas
+            }
         }
         else 
         {
-            // la meilleure valeur ne change pas
+
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
@@ -235,16 +242,24 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
-        lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER, lnRowOfPiece, liIndexColumn);
-       // cout << liIndexColumn << " : " << lnValuePosition << endl;
-        if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
+        if (lbIsPiecePlayed)
         {
-            lnBestMoveValueFor2 = lnValuePosition; // la nouvelle meilleure valeur
-            lnColumnOfBestMoveFor2 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+            lnValuePosition = calculatePositionValue(pvBoardGame, cnPLAYER, lnRowOfPiece, liIndexColumn);
+        // cout << liIndexColumn << " : " << lnValuePosition << endl;
+            if (lnBestMoveValueFor2 < lnValuePosition) // test la valeur de la position 
+            {
+                lnBestMoveValueFor2 = lnValuePosition; // la nouvelle meilleure valeur
+                lnColumnOfBestMoveFor2 = liIndexColumn; // l'indice pour avoir la nouvelle meilleure valeur
+            }
+            else 
+            {
+                // la meilleure valeur ne change pas
+            }
+            
         }
         else 
         {
-            // la meilleure valeur ne change pas
+            
         }
         pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
