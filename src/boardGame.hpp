@@ -3,6 +3,8 @@
 #include <tuple>
 #include <limits>
 
+// Fichier a rangé en deux parties
+
 #define cnSIZE_OF_BOARD 5
 #define cnPLAYER 1
 #define cnIA 2

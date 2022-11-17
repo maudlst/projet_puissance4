@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void gameDisplay( int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+void gameDisplay(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 {
     int liColomn, liRow ;
 
