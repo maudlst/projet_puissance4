@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+
 #define DEBUG_WT 0
 
 
@@ -20,8 +22,6 @@ typedef struct noeud {
     struct noeud *fils[26];
     char          term;
     } Noeud;
-
-
 
 
 
