@@ -2,7 +2,20 @@
 
 
 using namespace std;
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction gameDisplay()
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but d'afficher le plateau dans un terminal
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+
+/////////////////////////////////////////////////////////////////////////////*/
 void gameDisplay(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 {
     int liColomn, liRow ;
