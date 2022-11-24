@@ -7,7 +7,8 @@ using namespace std;
 
 int main(){
 
-    Node node("001010020032041100110120131141200210220230240300310320330340400410420430440");
+    Node node("1002100011000000000000000");
+    cout << node.getWeights()[4] << endl;
 
     cout << "STR :: \n" << node.printPositionName(node.getPositionName()) << endl;
 
