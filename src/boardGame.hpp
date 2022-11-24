@@ -5,7 +5,7 @@
 
 // Fichier a rangé en deux parties
 
-#define cnSIZE_OF_BOARD 5
+#define cnSIZE_OF_BOARD 5 // Tout a renommer
 #define cnPLAYER 1
 #define cnIA 2
 #define cnOffsetIndex1 1
