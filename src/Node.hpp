@@ -29,7 +29,7 @@ class Node
     std::string getPositionName();
     // void setPositionName(std::string pwNewPositionName);
     int *getWeights();
-    string *get
+    string *getChildren();
 
 
 };
