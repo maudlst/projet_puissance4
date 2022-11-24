@@ -19,7 +19,7 @@ class GraphAI{
     void exportToFile();
     void importFromFile();
     std::vector<std::string> GraphAI::cutString(std::string pwLine, char pwDelimiter);
-    Node appendChildToParent(Node& parent, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
+    Node& appendChildToParent(Node& psParent, int pnColunm, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
 
     int evaluateKnownPosition();
 

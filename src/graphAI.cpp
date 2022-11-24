@@ -123,6 +123,22 @@ vector<string> GraphAI::cutString(string pwLine, char pwDelimiter)
     return lvLineCuts;
 }
 
+Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositionValue)
+{
+    Node lsNodeSon;
+    if(msGraphMap.find(pwPositionValue) != msGraphMap.end()) // Le fils existe deja dans le graphe
+    {
+        lsNodeSon = msGraphMap[pwPositionValue];
+    }
+    else // Le fils n existe pas
+    {
+        Node lsNewNode(pwPositionValue);
+        lsNodeSon = lsNewNode;
+    }
+    psParent.addChild(pnColunm,pwPositionValue);
+    return lsNodeSon;
+}
+
 /*************   GET and SET    **************/
 
 
