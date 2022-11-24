@@ -10,6 +10,7 @@ void GraphAI::exportToFile() //ecriture
     map<string, Node>::iterator liMapIterator;
     int liNumberSon;
     int *lvWeightsSon;
+    string *lwSonsName;
     int lnSize;
 
     if(lsFile)
@@ -17,12 +18,13 @@ void GraphAI::exportToFile() //ecriture
         // On s'occupe d'abord de la racine (premiere ligne du fichier)
         lsFile << msRoot.getPositionName() << " ";
         lvWeightsSon = msRoot.getWeights();
+        lwSonsName = msRoot.getChildren();
         lnSize = (sizeof(lvWeightsSon) / sizeof(int));
         for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
         {
             if(lvWeightsSon[liNumberSon] >=  0)
             {
-                lsFile << liNumberSon << " " << lvWeightsSon[liNumberSon] << " ";
+                lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << lvWeightsSon[liNumberSon] << " ";
             }
             else // ne rien faire
             {}
@@ -36,13 +38,14 @@ void GraphAI::exportToFile() //ecriture
             
             lsFile << lsCurrentNode.getPositionName() << " ";
             lvWeightsSon = lsCurrentNode.getWeights();
+            lwSonsName = lsCurrentNode.getChildren();
             lnSize = (sizeof(lvWeightsSon) / sizeof(int));
 
             for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
             {
                 if(lvWeightsSon[liNumberSon] >=  0)
                 {
-                    lsFile << liNumberSon << " " << lvWeightsSon[liNumberSon] << " ";
+                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " <<  lvWeightsSon[liNumberSon] << " ";
                 }
                 else // ne rien faire
                 {}
@@ -61,15 +64,43 @@ void GraphAI::importFromFile()//lecture
 {
     ifstream lsFile(FILE_NAME);
     Node lsCurrentNode;
+    int liIndex;
     vector<string> lvLineCuts;
+    string *lvSonsName;
+    int *lvWeightsSons;
     string lwLine;
     string lwNodeName;
 
     if(lsFile)
     {
+        //Traitement de la racine
         getline(lsFile, lwLine);
         lvLineCuts = cutString(lwLine,' ');
         Node lsCurrentNode(lvLineCuts[0]);
+        lvSonsName = lsCurrentNode.getChildren();
+        lvWeightsSons = lsCurrentNode.getWeights();
+
+        for(liIndex = 1; liIndex < lvLineCuts.size(); liIndex+= 3)
+        {
+            lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
+            lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
+        }
+        msRoot = lsCurrentNode;
+
+        //Traitement des autres noeuds
+        while(getline(lsFile, lwLine)){
+            lvLineCuts = cutString(lwLine,' ');
+            Node lsCurrentNode(lvLineCuts[0]);
+            lvSonsName = lsCurrentNode.getChildren();
+            lvWeightsSons = lsCurrentNode.getWeights();
+
+            for(liIndex = 1; liIndex < lvLineCuts.size(); liIndex+= 3)
+            {
+                lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
+                lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
+            }
+            msGraphMap.insert(pair<string, Node>(lvLineCuts[0], lsCurrentNode));
+        }        
     }
     else 
     {
