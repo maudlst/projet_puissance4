@@ -1,10 +1,13 @@
 #include <string>
 
+#define SQUARE_REPR_SIZE_IN_STRING 3
+#define SIZE_SIDE 5
+
 class Node {
     private:
     std::string mvChildren[5];
     int mvWeights[5];
-    std::string positionValue;
+    std::string mwPositionName;
 
     public:
     Node();
@@ -13,8 +16,10 @@ class Node {
 
     static std::string arrayToString();
     
-    // reversePosition() //
+    std::string reversePosition();
 
-
+    std::string getPositionName();
+    int *getWeights();
+    
 
 };
