@@ -7,16 +7,15 @@ using namespace std;
 
 int main(){
 
-    Node node("1002100011000000000000000");
-    cout << node.getWeights()[4] << endl;
+    Node node("1002122011000000000000000");
+    cout << node.getWeights()[3] << endl;
 
     cout << "STR :: \n" << node.printPositionName(node.getPositionName()) << endl;
 
 
     cout << "REVERSE_STR :: \n" << node.printPositionName(node.reversePosition()) << endl;
 
-
-
+    cout << "STRNEW :: \n" << Node::printPositionName(node.calculateNewPositionValue(3, 7)) << endl;
 
     return 0;
 }

@@ -12,6 +12,11 @@ Node::Node()
 Node::Node(string pwPositionName)
 {
     mwPositionName = pwPositionName;
+    for (int i = 0; i < 5; i++)
+    {
+        mvWeights[i] = -1;
+        mvChildren[i] = "";
+    } 
 }
 
 // CALCULS
@@ -22,8 +27,8 @@ string Node::reversePosition()
     int liLeftCursor, liRightCursor;
     for (int liIndexRow = 0 ; liIndexRow < SIZE_SIDE ; liIndexRow ++)
     {
-        liLeftCursor = liIndexRow * SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE + 2;
-        liRightCursor = (liIndexRow + 1)* SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE - 1;
+        liLeftCursor = liIndexRow * SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE;
+        liRightCursor = (liIndexRow + 1) * SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE - 1;
         lwReturnString[liLeftCursor] = mwPositionName[liRightCursor];
         lwReturnString[liRightCursor] = mwPositionName[liLeftCursor];
         
@@ -38,21 +43,21 @@ string Node::reversePosition()
 
 string Node::calculateNewPositionValue(int pnColumnChosen, int pnCompteur) // player  
 {
-    int playeur = (pnCompteur % 2) + 1;
-    // for (int liIndexRow = 0 ; liIndexRow < SIZE_SIDE ; liIndexRow ++)
-    // {
-    //     liLeftCursor = liIndexRow * SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE + 2;
-    //     liRightCursor = (liIndexRow + 1)* SQUARE_REPR_SIZE_IN_STRING * SIZE_SIDE - 1;
-    //     lwReturnString[liLeftCursor] = mwPositionName[liRightCursor];
-    //     lwReturnString[liRightCursor] = mwPositionName[liLeftCursor];
-        
-
-    //     liLeftCursor += SQUARE_REPR_SIZE_IN_STRING;
-    //     liRightCursor -= SQUARE_REPR_SIZE_IN_STRING;
-    //     lwReturnString[liLeftCursor] = mwPositionName[liRightCursor];
-    //     lwReturnString[liRightCursor] = mwPositionName[liLeftCursor];
-    // }
+    string lwReturnString = mwPositionName;
+    int lnPlayer = (pnCompteur % 2) + 1;
+    int lnIndexLineCurrent = 0, lnIndexCharCurrent;
+    do
+    {
+        lnIndexCharCurrent = lnIndexLineCurrent * SIZE_SIDE + pnColumnChosen;
+        lnIndexLineCurrent++;
+        cout << lwReturnString[lnIndexCharCurrent] ;
+        cout << (lwReturnString[lnIndexCharCurrent] != 48) << endl;
+    }
+    while (lnIndexLineCurrent < 5 && lwReturnString[lnIndexCharCurrent] != 48);
     
+    cout << lnIndexCharCurrent << endl;
+    lwReturnString[lnIndexCharCurrent] = to_string(lnPlayer)[0];
+    return lwReturnString;
 }
 
 // AFFICHAGES
@@ -65,13 +70,7 @@ string Node::printPositionName(std::string pwPositionName)
     for (int liIndexRow = 4 ; liIndexRow >= 0 ; liIndexRow --)
     {
         lnFirstStringOfRow = liIndexRow * SIZE_SIDE * SQUARE_REPR_SIZE_IN_STRING;
-        // cout << "de " << lnFirstStringOfRow << " à " << lnFirstStringOfRow + lnCharInLine - 1 << endl;
         lwBufferLineString = pwPositionName.substr(lnFirstStringOfRow, lnCharInLine); 
-        for (int liIndexColumn = 3; liIndexColumn < lnCharInLine + (1 * SIZE_SIDE) ; liIndexColumn += SQUARE_REPR_SIZE_IN_STRING + 1)
-        {
-            lwBufferLineString.insert(liIndexColumn, CHAR_SEPARATOR_COL);
-        }
-        // cout << "HEY ::\n " << pwPositionName.substr(lnFirstStringOfRow, lnCharInLine - 1) << endl;
         lwReturnString.append(std::move(lwBufferLineString));
         lwReturnString.append(CHAR_SEPARATOR_LINE);
     }

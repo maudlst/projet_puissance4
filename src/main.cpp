@@ -12,7 +12,7 @@ int main(){
     bool gbIsGameFinished, lbIsPlayed;
 
     //gameDisplay(gvBoardGame);
-    gbIsGameFinished =false;
+    gbIsGameFinished = false;
     gnCurrentPlayer = cnIA;
     lbIsPlayed = false;
 
