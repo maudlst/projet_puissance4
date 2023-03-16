@@ -2,6 +2,11 @@
 
 using namespace std;
 
+GraphAI::GraphAI()
+{
+
+}
+
 /*/////////////////////////////////////////////////////////////////////////////
 Fonction exportToFile()
 
@@ -219,4 +224,14 @@ Nom du package : AI
 Node& GraphAI::getRoot()
 {
     return msRoot;
+}
+
+void GraphAI::setRoot(Node& psNode)
+{
+    msRoot = psNode;
+}
+
+void GraphAI::addNodetoMap(Node& psNode )
+{
+    msGraphMap[psNode.getPositionName()] = psNode;
 }
