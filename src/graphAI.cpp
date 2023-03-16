@@ -174,23 +174,23 @@ Entrées :
   pwPositionValue : la valeur de la position du fils 
 
 Sorties : 
-  lsNodeSon : la structure Node du fils
+  lsNodeChild : la structure Node du fils
 
 /////////////////////////////////////////////////////////////////////////////*/
 Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositionValue)
 {
-    Node lsNodeSon;
+    Node * lsNodeChild = NULL;
     if(msGraphMap.find(pwPositionValue) != msGraphMap.end()) // Le fils existe deja dans le graphe
     {
-        lsNodeSon = msGraphMap[pwPositionValue];
+        *lsNodeChild = msGraphMap[pwPositionValue];
     }
     else // Le fils n existe pas
     {
         Node lsNewNode(pwPositionValue);
-        lsNodeSon = lsNewNode;
+        *lsNodeChild = lsNewNode;
     }
     psParent.addChild(pnColunm,pwPositionValue);
-    return lsNodeSon;
+    return *lsNodeChild;
 }
 
 /*************   GET and SET    **************/
