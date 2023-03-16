@@ -41,6 +41,11 @@ Node::Node(string pwPositionName)
     }
 }
 
+void Node::addChild(int pnColumn, std::string mvChildrenName)
+{
+    mvChildren[pnColumn] = mvChildrenName;
+}
+
 // CALCULS
 
 /*/////////////////////////////////////////////////////////////////////////////

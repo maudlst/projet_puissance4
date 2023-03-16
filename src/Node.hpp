@@ -34,7 +34,7 @@ class Node
     public:
     Node();
     Node(std::string pwPositionName);
-    void addChild(int place, std::string child); // ajoute le fils à la position place dans mvChildren 
+    void addChild(int pnColumn, std::string mvChildrenName); // ajoute le fils à la position place dans mvChildren 
     int ** stringToArray(); // attention au malloc
 
     static std::string arrayToString();
