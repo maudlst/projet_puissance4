@@ -44,6 +44,7 @@ Node::Node(string pwPositionName)
 void Node::addChild(int pnColumn, std::string mvChildrenName)
 {
     mvChildren[pnColumn] = mvChildrenName;
+    mvWeights[pnColumn] = 0;
 }
 
 // CALCULS

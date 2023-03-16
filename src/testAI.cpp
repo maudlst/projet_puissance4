@@ -1,4 +1,3 @@
-#include "node.hpp"
 #include "graphAI.hpp"
 #include <stdio.h>
 #include <iostream>
@@ -8,11 +7,36 @@ using namespace std;
 int main(){
 
     Node node("1202120011000000000000000");
-    Node racine("0000000000000000000000000");
+/*    Node racine;
+    Node noeud1("0100000000000000000000000");
+    Node noeud3("0010000000000000000000000");
+    Node noeud2("0120000000000000000000000");
+
 
     GraphAI graphe;
+    graphe.getRoot().addChild(1,noeud1.getPositionName());
+    graphe.getRoot().addChild(2,noeud3.getPositionName());
+    //racine = graphe.getRoot();
+    //racine.addChild(1,noeud1.getPositionName());
 
-    graphe.addNodeToMap(racine);
+    graphe.addNodetoMap(noeud1);
+    graphe.getGraphMap()[noeud1.getPositionName()].addChild(2,noeud2.getPositionName());
+    //noeud1.addChild(2,noeud2.getPositionName());
+    graphe.addNodetoMap(noeud2);
+
+    cout << graphe.getRoot().getChildren()[1] << endl;
+
+    graphe.exportToFile();
+*/
+    GraphAI graphe2;
+
+    graphe2.importFromFile();
+        cout << graphe2.getGraphMap()["0100000000000000000000000"].getChildren()[2] << endl;
+
+    graphe2.exportToFile();
+
+
+    cout << "///////////////////////////////////////////////////////" << endl;
 
     cout << node.getWeights()[3] << endl;
 
