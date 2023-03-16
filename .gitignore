@@ -3,3 +3,5 @@
 *.out
 PLAY
 test
+test
+*.json
