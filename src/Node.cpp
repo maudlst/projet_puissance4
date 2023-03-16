@@ -108,8 +108,6 @@ string Node::calculateNewPositionValue(int pnColumnChosen, int pnCompteur) // pl
     {
         lnIndexCharCurrent = lnIndexLineCurrent * SIZE_SIDE + pnColumnChosen;
         lnIndexLineCurrent++;
-        cout << lwReturnString[lnIndexCharCurrent] ;
-        cout << (lwReturnString[lnIndexCharCurrent] != 48) << endl; // 48 = 0 en ASCII
     }
     while (lnIndexLineCurrent < 5 && lwReturnString[lnIndexCharCurrent] != 48);
     
