@@ -29,7 +29,7 @@ void GraphAI::exportToFile() //ecriture
         lsFile << msRoot.getPositionName() << " ";
         lvWeightsSon = msRoot.getWeights();
         lwSonsName = msRoot.getChildren();
-        lnSize = (sizeof(lvWeightsSon) / sizeof(int));
+        lnSize = 5;
         for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
         {
             if(lvWeightsSon[liNumberSon] >=  0)
@@ -49,7 +49,7 @@ void GraphAI::exportToFile() //ecriture
             lsFile << lsCurrentNode.getPositionName() << " ";
             lvWeightsSon = lsCurrentNode.getWeights();
             lwSonsName = lsCurrentNode.getChildren();
-            lnSize = (sizeof(lvWeightsSon) / sizeof(int));
+            lnSize = 5;
 
             for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
             {
@@ -100,7 +100,7 @@ void GraphAI::importFromFile()//lecture
         lvSonsName = lsCurrentNode.getChildren();
         lvWeightsSons = lsCurrentNode.getWeights();
 
-        for(liIndex = 1; liIndex < lvLineCuts.size(); liIndex+= 3)
+        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
         {
             lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
             lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
@@ -114,7 +114,7 @@ void GraphAI::importFromFile()//lecture
             lvSonsName = lsCurrentNode.getChildren();
             lvWeightsSons = lsCurrentNode.getWeights();
 
-            for(liIndex = 1; liIndex < lvLineCuts.size(); liIndex+= 3)
+            for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
             {
                 lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
                 lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
