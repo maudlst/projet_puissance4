@@ -23,7 +23,7 @@ class GraphAI{
      * @brief Le noeud racine du graphe
      * 
      */
-    Node msRoot;
+    Node msRoot = *(new Node("0000000000000000000000000"));
     // Node msActual;
 
     public:

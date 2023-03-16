@@ -10,7 +10,7 @@ int main(){
     Node node("1202120011000000000000000");
     Node racine("0000000000000000000000000");
 
-    GraphAI graphe();
+    GraphAI graphe;
 
     graphe.addNodeToMap(racine);
 
