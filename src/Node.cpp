@@ -1,14 +1,36 @@
 #include "node.hpp"
 
 using namespace std;
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction Node()
 
+Auteur : Maud Lestienne (IATIC-4), Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
 
+But de la fonction :
+  Constructeur vide
+
+/////////////////////////////////////////////////////////////////////////////*/
 Node::Node()
 {
 
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction Node()
 
+Auteur : Maud Lestienne (IATIC-4), Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Constructeur avec la chaine de caractère de la position en entrée
+
+Entrées :
+  pwPositionName : la chaîne de caractère qui représente la position
+
+/////////////////////////////////////////////////////////////////////////////*/
 Node::Node(string pwPositionName)
 {
     mwPositionName = pwPositionName;
@@ -16,11 +38,25 @@ Node::Node(string pwPositionName)
     {
         mvWeights[i] = -1;
         mvChildren[i] = "";
-    } 
+    }
 }
 
 // CALCULS
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction reversePosition()
+
+Auteur : Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Renvoie la chaîne de caractère de la position avec une symmètrie verticale
+
+Sorties : 
+  lwReturnString : La position résultante
+
+/////////////////////////////////////////////////////////////////////////////*/
 string Node::reversePosition()
 {
     string lwReturnString = mwPositionName;
@@ -40,11 +76,28 @@ string Node::reversePosition()
     }
     return lwReturnString;
 }
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction calculateNewPositionValue()
 
+Auteur : Maud Lestienne (IATIC-4), Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Calcul la chaîne de caractère de la nouvelle position après le coup
+
+Entrées :
+  pnColumnChosen : La colonne choisie
+  pnCompteur : le compteur de coup joués depuis le début
+
+Sorties : 
+  lwReturnString : La position résultante
+
+/////////////////////////////////////////////////////////////////////////////*/
 string Node::calculateNewPositionValue(int pnColumnChosen, int pnCompteur) // player  
 {
     string lwReturnString = mwPositionName;
-    int lnPlayer = (pnCompteur % 2) + 1;
+    int lnPlayer = (pnCompteur % 2) + 1; 
     int lnIndexLineCurrent = 0, lnIndexCharCurrent;
     do
     {
@@ -60,8 +113,23 @@ string Node::calculateNewPositionValue(int pnColumnChosen, int pnCompteur) // pl
     return lwReturnString;
 }
 
-// AFFICHAGES
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction printPositionName()
 
+Auteur : Maud Lestienne (IATIC-4), Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Renvoie un bel affichage de la position
+
+Entrées :
+  pwPositionName : La chaîne de caractère qui représente la position
+
+Sorties : 
+  lwReturnString : Le bel affichage sous forme de chaîne de caractère
+
+/////////////////////////////////////////////////////////////////////////////*/
 string Node::printPositionName(std::string pwPositionName)
 {
     string lwReturnString = "", lwBufferLineString = "";
@@ -76,15 +144,40 @@ string Node::printPositionName(std::string pwPositionName)
     }
     return lwReturnString;
 }
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction getPositionName()
 
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 string Node::getPositionName()
 {
     return mwPositionName;
 }
+
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction getPositionName()
+
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 int * Node::getWeights()
 {
     return mvWeights;
 }
+
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction getPositionName()
+
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 string * Node::getChildren()
 {
     return mvChildren;

@@ -2,7 +2,17 @@
 
 using namespace std;
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction exportToFile()
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Charge dans un fichier l'état de l'IA
+
+/////////////////////////////////////////////////////////////////////////////*/
 void GraphAI::exportToFile() //ecriture
 {
     ofstream lsFile(FILE_NAME);  //Ouverture en ecriture du fichier
@@ -45,7 +55,7 @@ void GraphAI::exportToFile() //ecriture
             {
                 if(lvWeightsSon[liNumberSon] >=  0)
                 {
-                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " <<  lvWeightsSon[liNumberSon] << " ";
+                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << lvWeightsSon[liNumberSon] << " ";
                 }
                 else // ne rien faire
                 {}
@@ -59,7 +69,17 @@ void GraphAI::exportToFile() //ecriture
     }
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction importFromFile()
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Récupère l'état de l'IA depuis un fichier
+
+/////////////////////////////////////////////////////////////////////////////*/
 void GraphAI::importFromFile()//lecture
 {
     ifstream lsFile(FILE_NAME);
@@ -106,10 +126,25 @@ void GraphAI::importFromFile()//lecture
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier en lecture" << endl;
     }
-
-
 }
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction cutString()
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Découpe une ligne selon un délimiteur en retirant les retours à la ligne 
+
+Entrées :
+  pwLine : La ligne à découpée
+  pwDelimiter : Le caractère qui va permettre de découper la chaîne
+
+Sorties : 
+  lvLineCuts : le vecteur qui contient chaque bout de string couper
+
+/////////////////////////////////////////////////////////////////////////////*/
 vector<string> GraphAI::cutString(string pwLine, char pwDelimiter)
 {
     vector<string> lvLineCuts;
@@ -123,6 +158,25 @@ vector<string> GraphAI::cutString(string pwLine, char pwDelimiter)
     return lvLineCuts;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction appendChildToParent()
+
+Auteur : Arnaud HENCHES (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+But de la fonction :
+  Découpe une ligne selon un délimiteur en retirant les retours à la ligne 
+
+Entrées :
+  psParent : Le père 
+  pnColunm : La colonne qui va permettre de passer du père au fils
+  pwPositionValue : la valeur de la position du fils 
+
+Sorties : 
+  lsNodeSon : la structure Node du fils
+
+/////////////////////////////////////////////////////////////////////////////*/
 Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositionValue)
 {
     Node lsNodeSon;
@@ -141,12 +195,27 @@ Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositi
 
 /*************   GET and SET    **************/
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction getPositionName()
 
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 map<std::string, Node>& GraphAI::getGraphMap()
 {
     return msGraphMap;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction getPositionName()
+
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 Node& GraphAI::getRoot()
 {
     return msRoot;
