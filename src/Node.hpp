@@ -5,12 +5,30 @@
 #define SIZE_SIDE 5
 #define CHAR_SEPARATOR_COL " "
 #define CHAR_SEPARATOR_LINE "\n"
-
+/**
+ * @brief Classe reprensentant un noeud du graphe
+ * 
+ */
 class Node 
 {
     private:
+    /**
+     * @brief Tableau contenant les fils du noeud
+     * 
+     */
     std::string mvChildren[5];
+    /**
+     * @brief Tableau contenant le poids des fils du noeud 
+     * (le poids est un calcul de reussite en suivant le chemin de ce fils)
+     * 
+     */
     int mvWeights[5];
+    
+    /**
+     * @brief Chaine de caractere representant le plateau de jeu et des pions joués
+     * Il represente une "position" de jeu dans une partie
+     * 
+     */
     std::string mwPositionName;
 
     public:

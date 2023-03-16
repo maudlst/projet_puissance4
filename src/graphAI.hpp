@@ -7,10 +7,22 @@
 #include "node.hpp"
 
 #define FILE_NAME "file/graphAI.txt"
-
+/**
+ * @brief classe representant le graphe de l'IA
+ * 
+ */
 class GraphAI{
     private:
+    /**
+     * @brief Map contenant le graphe de l'IA
+     * 
+     */
     std::map<std::string, Node> msGraphMap;
+    
+    /**
+     * @brief Le noeud racine du graphe
+     * 
+     */
     Node msRoot;
     // Node msActual;
 
