@@ -6,7 +6,7 @@
 #include <fstream>
 #include "node.hpp"
 
-#define FILE_NAME "file/graphAI.txt"
+#define FILE_NAME "./src/files/graphAI.txt"
 /**
  * @brief classe representant le graphe de l'IA
  * 

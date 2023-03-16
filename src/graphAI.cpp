@@ -107,8 +107,8 @@ void GraphAI::importFromFile()//lecture
 
         for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
         {
-            lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
-            lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
+            lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
+            lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
         }
         msRoot = lsCurrentNode;
 
@@ -121,8 +121,8 @@ void GraphAI::importFromFile()//lecture
 
             for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
             {
-                lvSonsName[liIndex] = lvLineCuts[liIndex + 1];
-                lvWeightsSons[liIndex] = stoi(lvLineCuts[liIndex + 2]);
+                lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
+                lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
             }
             msGraphMap.insert(pair<string, Node>(lvLineCuts[0], lsCurrentNode));
         }        
