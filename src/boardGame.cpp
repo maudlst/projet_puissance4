@@ -32,7 +32,26 @@ void gameDisplay(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     cout << "----------------------------------------" << endl;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer)
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but de placer un pion dans le plateau de jeu
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnColomnToPlay : la colonne dans laquelle on souhaite mettre le jeton 
+  pnPlayer : le numero  du joueur qui veut placer le jeton
+
+Sortie :
+    tuple <bool, int> : le booleen permet de savoir si le pion a ete placer, 
+                        l'entier represente la ligne dans laquelle se situe le jeton s'il est joué 
+
+/////////////////////////////////////////////////////////////////////////////*/
 tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer)
 {
     bool lbPlayed, lbIsLoopFinished;
@@ -60,7 +79,25 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
     return make_tuple(lbPlayed, liIndexRow);
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but de savoir si le jeu est fini ou pas 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnPlayer : le numero du joueur
+
+Sortie :
+   bool : si vrai le jeu est fini
+            sinon le jeu n'est pas fini
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 {
     bool lbIsFinished;
@@ -98,6 +135,25 @@ bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPla
 }
 
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isVerticalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but si il y a un alignement vertical de pions de la part du joueur 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnPlayer : le numero  du joueur 
+
+Sortie :
+    bool : si le joueur a aligner 4 pions alors vrai 
+            sinon faux
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isVerticalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 {
     bool lbIsAlignment;
@@ -121,6 +177,25 @@ bool isVerticalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int 
     return lbIsAlignment;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isHorizontalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but si il y a un alignement horizontal de pions de la part du joueur 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnPlayer : le numero  du joueur 
+
+Sortie :
+    bool : si le joueur a aligner 4 pions alors vrai 
+            sinon faux
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isHorizontalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 {
     bool lbIsAlignment;
@@ -144,6 +219,25 @@ bool isHorizontalAlignment(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     return lbIsAlignment;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isDiagonalAlignmentTRBL(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but si il y a un alignement diagonal (la diagonale a son haut a droite et son bas a gauche ) de pions de la part du joueur 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnPlayer : le numero  du joueur 
+
+Sortie :
+    bool : si le joueur a aligner 4 pions alors vrai 
+            sinon faux
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isDiagonalAlignmentTRBL(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)//Diagonale le Bas à Gauche et le Haut à Droite
 {
     bool lbIsAlignment;
@@ -171,6 +265,25 @@ bool isDiagonalAlignmentTRBL(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
     return lbIsAlignment;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but si il y a un alignement diagonal (la diagonale a son haut a gauche et son bas a droite ) de pions de la part du joueur 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+  pnPlayer : le numero  du joueur 
+
+Sortie :
+    bool : si le joueur a aligner 4 pions alors vrai 
+            sinon faux
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)//Diagonale le Bas à Droite et le Haut à Gauche
 {
     bool lbIsAlignment;
@@ -198,6 +311,24 @@ bool isDiagonalAlignmentTLBR(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], 
     return lbIsAlignment;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction bool isBoardGameFull(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+
+Auteur : Maud Lestienne (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but si le plateau est completement rempli 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+
+Sortie :
+    bool : si le plateau est complet alors vrai 
+            sinon faux
+
+/////////////////////////////////////////////////////////////////////////////*/
 bool isBoardGameFull(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 {
     bool lbIsBoardGameFull;
@@ -216,6 +347,23 @@ bool isBoardGameFull(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     return lbIsBoardGameFull;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+
+Auteur : Arnaud Henches (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but de calculer le meilleur coup a jouer dans le plateau pour le joueur IA 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+
+Sortie :
+    int : la colonne a jouer pour faire le mouvement calculer
+
+/////////////////////////////////////////////////////////////////////////////*/
 int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 {
     int lnColumnOfBestMoveFor1 = -1;
@@ -288,6 +436,27 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     }
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur, int pnRowOfMove, int pnColumnOfMove)
+
+Auteur : Arnaud Henches (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but de calculer la valeur de la position potentielle du jeton
+On calcule la valeur d'une position en fonction des pions placé autour de la position est des places qu'il reste autour 
+ 
+Entrées :
+    pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+    pnPlayeur : le numero du joueur courant
+    pnRowOfMove : la ligne du plateau ou le coup est joue
+    pnColumnOfMove : la colonne du plateau ou le coup est joue
+
+Sortie :
+    int : la valeur de la position donnée en parametre
+
+/////////////////////////////////////////////////////////////////////////////*/
 int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur, int pnRowOfMove, int pnColumnOfMove)
 {
     int lnPositionValue = 0;
@@ -394,6 +563,27 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     return lnPositionValue;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2)
+
+Auteur : Arnaud Henches (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction a pour but de calculer la valeur des directions autour d'une position
+Directions possible : vertical, horizontal et les diagonales
+ 
+Entrées :
+    pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+    pnPlayeur : le numero du joueur courant
+    pnRowOfMove : la ligne du plateau ou le coup est joue
+    pnColumnOfMove : la colonne du plateau ou le coup est joue
+
+Sortie :
+    int : la valeur de la position donnée en parametre
+
+/////////////////////////////////////////////////////////////////////////////*/
 int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2)
 {
     int lnDirectionValue;
