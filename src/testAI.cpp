@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 
-    Node node("1002122011000000000000000");
+    Node node("1202120011000000000000000");
     cout << node.getWeights()[3] << endl;
 
     cout << "STR :: \n" << node.printPositionName(node.getPositionName()) << endl;
