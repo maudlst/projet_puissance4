@@ -38,5 +38,5 @@ class GraphAI{
     std::map<std::string, Node>& getGraphMap();
     Node& getRoot();
     void setRoot(Node& psNode);
-    void addNodetoMap(Node& psNode );
+    void addNodetoMap(Node& psNode);
 };

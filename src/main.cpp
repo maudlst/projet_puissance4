@@ -31,12 +31,12 @@ int main(){
             while (!lbIsPlayed)
             {
                 gnSelectedColomn = calculateBestMove(gvBoardGame);
-                tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame,gnSelectedColomn, gnCurrentPlayer); 
+                tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame, gnSelectedColomn, gnCurrentPlayer); 
 
             }
             lbIsPlayed = false;
             gameDisplay(gvBoardGame);
-            gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
+            gbIsGameFinished = isGameFinished(gvBoardGame, gnCurrentPlayer);
 
             gnCurrentPlayer = cnPLAYER;
         }

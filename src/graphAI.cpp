@@ -184,18 +184,17 @@ Sorties :
 /////////////////////////////////////////////////////////////////////////////*/
 Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositionValue)
 {
-    Node * lsNodeChild = NULL;
-    if(msGraphMap.find(pwPositionValue) != msGraphMap.end()) // Le fils existe deja dans le graphe
-    {
-        *lsNodeChild = msGraphMap[pwPositionValue];
-    }
-    else // Le fils n existe pas
-    {
-        Node lsNewNode(pwPositionValue);
-        *lsNodeChild = lsNewNode;
-    }
     psParent.addChild(pnColunm,pwPositionValue);
-    return *lsNodeChild;
+    if(msGraphMap.find(pwPositionValue) == msGraphMap.end()) // Le fils n'existe pas dans le graphe
+    {
+        Node &lsNewNode = *(new Node(pwPositionValue));
+        msGraphMap[pwPositionValue] = lsNewNode;
+        return lsNewNode;
+    }
+    else // Le fils existe déja
+    {
+        return msGraphMap[pwPositionValue];
+    }
 }
 
 /*************   GET and SET    **************/
