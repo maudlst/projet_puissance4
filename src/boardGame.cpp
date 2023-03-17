@@ -63,7 +63,7 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
       
     while(!lbIsLoopFinished  && liIndexRow < cnSIZE_OF_BOARD)
     {
-        lnBoxBoard = pvBoardGame[liIndexRow][pnColomnToPlay];  
+        lnBoxBoard = pvBoardGame[liIndexRow][pnColomnToPlay];
         if(lnBoxBoard == 0)
         {
             pvBoardGame[liIndexRow][pnColomnToPlay] = pnPlayer;

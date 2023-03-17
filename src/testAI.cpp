@@ -42,7 +42,6 @@ int main(){
 
     cout << "STR :: \n" << node.printPositionName(node.getPositionName()) << endl;
 
-
     cout << "REVERSE_STR :: \n" << node.printPositionName(node.reversePosition()) << endl;
 
     cout << "STRNEW :: \n" << Node::printPositionName(node.calculateNewPositionValue(3, 7)) << endl;

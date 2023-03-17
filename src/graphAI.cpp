@@ -187,9 +187,8 @@ Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositi
     psParent.addChild(pnColunm,pwPositionValue);
     if(msGraphMap.find(pwPositionValue) == msGraphMap.end()) // Le fils n'existe pas dans le graphe
     {
-        Node &lsNewNode = *(new Node(pwPositionValue));
-        msGraphMap[pwPositionValue] = lsNewNode;
-        return lsNewNode;
+        msGraphMap[pwPositionValue] = *(new Node(pwPositionValue));
+        return msGraphMap[pwPositionValue];
     }
     else // Le fils existe déja
     {

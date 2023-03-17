@@ -19,6 +19,8 @@ int main() {
         std::cout << "COUCOU" << it->first << "\n";
     }
     
+    string s = actual.calculateNewPositionValue(0, 0);
+    graph.appendChildToParent(actual, 0, s);
 
     int gvBoardGame[5][5] = {{0}};
     int gnCurrentPlayer, gnSelectedColomn, lnRowPlayed, gnMoveCounter;
@@ -29,12 +31,7 @@ int main() {
     gnCurrentPlayer = cnIA;
     lbIsPlayed = false;
     gnMoveCounter = 0;
-
-    //gvBoardGame[0][1] = 1;
-    //gvBoardGame[0][3] = 2;
-    //gvBoardGame[1][1] = 1;
-    //gvBoardGame[0][2] = 2;
-
+    
     gameDisplay(gvBoardGame);
     //cout << calculateBestMove(gvBoardGame) << endl;
     while(!gbIsGameFinished)
@@ -91,6 +88,10 @@ int main() {
     {
         std::cout << it->first << "\n";
     }
+    s = actual.calculateNewPositionValue(0, 0);
+    graph.appendChildToParent(actual, 0, s);
+    
+    graph.exportToFile();
     
 
     return 0;
