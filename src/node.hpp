@@ -12,7 +12,11 @@
 #define SIZE_SIDE 5
 
 //#define CHAR_SEPARATOR_COL " "
-//#define CHAR_SEPARATOR_LINE "\n"
+/**
+ * @brief Separateur pour l affichage des lignes du plateau
+ * 
+ */
+#define CHAR_SEPARATOR_LINE "\n"
 
 /**
  * @brief Classe reprensentant un noeud du graphe
