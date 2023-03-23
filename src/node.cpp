@@ -14,7 +14,7 @@ But de la fonction :
 /////////////////////////////////////////////////////////////////////////////*/
 Node::Node()
 {
-    mvWeight = {0, 0, 0};
+    msWeight = {0, 0, 0};
 
 }
 
@@ -34,7 +34,7 @@ Entrées :
 /////////////////////////////////////////////////////////////////////////////*/
 Node::Node(string pwPositionName)
 {
-    mvWeight = {0, 0, 0};
+    msWeight = {0, 0, 0};
 
     mwPositionName = pwPositionName;
     for (int i = 0; i < 5; i++)
@@ -46,7 +46,6 @@ Node::Node(string pwPositionName)
 void Node::addChild(int pnColumn, std::string mvChildrenName)
 {
     mvChildren[pnColumn] = mvChildrenName;
-    mvWeights[pnColumn] = 0;
 }
 
 // CALCULS
@@ -171,9 +170,15 @@ Nom du projet : Robot Niryo - Puissance 4
 Nom du package : AI
 
 /////////////////////////////////////////////////////////////////////////////*/
-int * Node::getWeights()
+weight_t Node::getWeight()
 {
-    return mvWeights;
+    return msWeight;
+}
+
+void Node::setWeight(int pnGamePlayed, int pnGameWon, float pnVictoryRate)
+{
+    weight_t lsNewWeight = {pnGamePlayed, pnGameWon, pnVictoryRate};
+    msWeight = lsNewWeight;
 }
 
 /*/////////////////////////////////////////////////////////////////////////////

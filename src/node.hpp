@@ -66,5 +66,6 @@ class Node
     std::string getPositionName();
     // void setPositionName(std::string pwNewPositionName);
     weight_t getWeight();
+    void setWeight(int pnGamePlayed, int pnGameWon, float pnVictoryRate);
     std::string *getChildren();
 };
