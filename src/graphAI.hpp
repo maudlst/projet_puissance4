@@ -34,6 +34,7 @@ class GraphAI{
     Node *appendChildToParent(Node *psParent, int pnColunm, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
 
     int evaluateKnownPosition();
+    void deleteNodes();
 
     std::map<std::string, Node *>& getGraphMap();
     Node *getRoot();

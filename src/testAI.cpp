@@ -7,27 +7,28 @@ using namespace std;
 int main(){
 
     Node node("1202120011000000000000000");
-/*    Node racine;
+    Node racine;
     Node noeud1("0100000000000000000000000");
     Node noeud3("0010000000000000000000000");
     Node noeud2("0120000000000000000000000");
 
-
+/*
     GraphAI graphe;
-    graphe.getRoot().addChild(1,noeud1.getPositionName());
-    graphe.getRoot().addChild(2,noeud3.getPositionName());
+    graphe.appendChildToParent(graphe.getRoot(),1,noeud1.getPositionName());
+    graphe.appendChildToParent(graphe.getRoot(),2,noeud3.getPositionName());
     //racine = graphe.getRoot();
     //racine.addChild(1,noeud1.getPositionName());
 
-    graphe.addNodetoMap(noeud1);
+    graphe.addNodetoMap(&noeud1);
     graphe.getGraphMap()[noeud1.getPositionName()].addChild(2,noeud2.getPositionName());
     //noeud1.addChild(2,noeud2.getPositionName());
-    graphe.addNodetoMap(noeud2);
+    graphe.addNodetoMap(&noeud2);
 
     cout << graphe.getRoot().getChildren()[1] << endl;
 
     graphe.exportToFile();
-*/
+    */
+/*
     GraphAI graphe2;
 
     graphe2.importFromFile();
@@ -45,6 +46,6 @@ int main(){
     cout << "REVERSE_STR :: \n" << node.printPositionName(node.reversePosition()) << endl;
 
     cout << "STRNEW :: \n" << Node::printPositionName(node.calculateNewPositionValue(3, 7)) << endl;
-
+*/
     return 0;
 }
