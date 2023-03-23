@@ -40,17 +40,19 @@ int main() {
     
     int gvBoardGame[5][5] = {{0}};
     int gnCurrentPlayer, gnSelectedColomn, lnRowPlayed, gnMoveCounter;
-    bool gbIsGameFinished, lbIsPlayed;
+    gameStatus gnPositionStatus;
+    bool lbIsPlayed;
+
 
     //gameDisplay(gvBoardGame);
-    gbIsGameFinished = false;
+    gnPositionStatus = gnGameNotFinished;
     gnCurrentPlayer = cnIA;
     lbIsPlayed = false;
     gnMoveCounter = 0;
     
     gameDisplay(gvBoardGame);
     //cout << calculateBestMove(gvBoardGame) << endl;
-    while(!gbIsGameFinished)
+    while(!gnPositionStatus)
     {
         if(gnCurrentPlayer == cnIA)
         {
@@ -65,7 +67,7 @@ int main() {
             actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString));
             gvEncounteredNodes.push_back(actual);
             gameDisplay(gvBoardGame);
-            gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
+            gnPositionStatus = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
             gnCurrentPlayer = cnPLAYER;
         }
@@ -87,21 +89,29 @@ int main() {
             actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString)); 
             gvEncounteredNodes.push_back(actual);
             gameDisplay(gvBoardGame);
-            gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
+            gnPositionStatus = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
             gnCurrentPlayer = cnIA; 
         }
         gnMoveCounter++;
     }
 
-    calculateWeights(gvEncounteredNodes, false);
-    if(gnCurrentPlayer == cnIA)
+    if (gnPositionStatus != gnStaleMate)
     {
-        cout << "Vous avez gagné " << endl;
+        calculateWeights(gvEncounteredNodes, false);
+
+        if(gnCurrentPlayer == cnIA)
+        {
+            cout << "Vous avez gagné  " << endl;
+        }
+        else
+        {
+            cout << "Le gagnant est l'IA  " << endl;
+        }
     }
-    else
+    else 
     {
-        cout << "Le gagnant est l'IA  " << endl;
+        cout << "Le Match est ex aequo  " << endl;
     }
     cout << "APRES LEARNING" << endl;
     for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)
@@ -109,7 +119,6 @@ int main() {
         std::cout << it->first << "\n";
     }
     
-    //graph.getGraphMap()["0000000000000000000000000"] = *(graph.getRoot());
     graph.exportToFile();
 
 

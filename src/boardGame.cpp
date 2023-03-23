@@ -79,6 +79,8 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
     return make_tuple(lbPlayed, liIndexRow);
 }
 
+
+
 /*/////////////////////////////////////////////////////////////////////////////
 Fonction bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 
@@ -94,44 +96,45 @@ Entrées :
   pnPlayer : le numero du joueur
 
 Sortie :
-   bool : si vrai le jeu est fini
+    : si vrai le jeu est fini
             sinon le jeu n'est pas fini
 
 /////////////////////////////////////////////////////////////////////////////*/
-bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+
+gameStatus isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 {
-    bool lbIsFinished;
+    gameStatus lnStatus;
 
     if (isHorizontalAlignment(pvBoardGame,pnPlayer))
     {
-        lbIsFinished = true;
+        lnStatus = gnGameWon;
         cout << "partie gagnée" << endl;
     }
     else if(isVerticalAlignment(pvBoardGame,pnPlayer))
     {
-        lbIsFinished = true;
+        lnStatus = gnGameWon;
         cout << "partie gagnée" << endl;
     }
     else if (isDiagonalAlignmentTLBR(pvBoardGame,pnPlayer))
     {
-        lbIsFinished = true;
+        lnStatus = gnGameWon;
         cout << "partie gagnée" << endl;
     }
     else if (isDiagonalAlignmentTRBL(pvBoardGame,pnPlayer))
     {
-        lbIsFinished = true;
+        lnStatus = gnGameWon;
         cout << "partie gagnée" << endl;
     }
     else if (isBoardGameFull(pvBoardGame))
     {
-        lbIsFinished = true;
+        lnStatus = gnStaleMate;
         cout << "match nul" << endl;
     }
     else 
     {
-        lbIsFinished = false;
+        lnStatus = gnGameNotFinished;
     }
-    return lbIsFinished;
+    return lnStatus;
 }
 
 
