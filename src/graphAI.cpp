@@ -118,9 +118,9 @@ void GraphAI::importFromFile()//lecture
         //Traitement des autres noeuds
         while(getline(lsFile, lwLine)){
             lvLineCuts = cutString(lwLine,' ');
-            Node lsCurrentNode(lvLineCuts[0]);
-            lsCurrentNode.setWeight(stoi(lvLineCuts[1]), stoi(lvLineCuts[2]), stof(lvLineCuts[3]));
-            lvSonsName = lsCurrentNode.getChildren();
+            Node* lsCurrentNode = new Node(lvLineCuts[0]);
+            lsCurrentNode->setWeight(stoi(lvLineCuts[1]), stoi(lvLineCuts[2]), stof(lvLineCuts[3]));
+            lvSonsName = lsCurrentNode->getChildren();
 
             for(liIndex = 4; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
             {
@@ -128,7 +128,7 @@ void GraphAI::importFromFile()//lecture
                 cout << stoi(lvLineCuts[liIndex]) << " " << lvLineCuts[liIndex + 1] << " ";
                 
             }
-            msGraphMap[lvLineCuts[0]] = &lsCurrentNode;
+            msGraphMap[lvLineCuts[0]] = lsCurrentNode;
             cout << endl;
         }        
     }
@@ -238,4 +238,13 @@ void GraphAI::setRoot(Node& psNode)
 void GraphAI::addNodetoMap(Node *psNode)
 {
     msGraphMap[psNode->getPositionName()] = psNode;
+}
+
+
+void GraphAI::deleteNodes()
+{
+    for(auto it = msGraphMap.cbegin(); it != msGraphMap.cend(); ++it)
+    {
+        delete(it->second);
+    }
 }

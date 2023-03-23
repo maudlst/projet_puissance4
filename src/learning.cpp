@@ -129,11 +129,13 @@ int main() {
     cout << g2.getRoot()->getPositionName() << endl;
     for(auto it = g2.getGraphMap().cbegin(); it != g2.getGraphMap().cend(); ++it)
     {
-        std::cout << it->first << "\n";
+        std::cout << it->second->getPositionName() << "\n";
     }
     cout << endl << "Graph2 export" << endl;
-    //g2.exportToFile();
+    g2.exportToFile();
 
+    graph.deleteNodes();
+    g2.deleteNodes();
 
     return 0;
 }
