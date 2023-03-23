@@ -97,7 +97,6 @@ But de la fonction :
 void GraphAI::importFromFile()//lecture
 {
     ifstream lsFile(FILE_NAME);
-    Node lsCurrentNode;
     int liIndex;
     vector<string> lvLineCuts;
     string *lvSonsName;
@@ -109,17 +108,12 @@ void GraphAI::importFromFile()//lecture
         //Traitement de la racine
         getline(lsFile, lwLine);
         lvLineCuts = cutString(lwLine,' ');
-        Node lsCurrentNode(lvLineCuts[0]);
-        lvSonsName = lsCurrentNode.getChildren();
 
         for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
         {
-            lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
+            msRoot->getChildren()[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
             cout << stoi(lvLineCuts[liIndex]) << " " << lvLineCuts[liIndex + 1] << " ";
-        
         }
-        cout << msRoot->getPositionName() << " " << endl;
-        msRoot = &lsCurrentNode;
         cout << msRoot->getPositionName() << " " << endl;
         //Traitement des autres noeuds
         while(getline(lsFile, lwLine)){

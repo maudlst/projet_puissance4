@@ -119,12 +119,8 @@ int main() {
         std::cout << it->first << "\n";
     }
     
-<<<<<<< Updated upstream
-    graph.exportToFile();
-=======
-    //graph.getGraphMap()["0000000000000000000000000"] = *(graph.getRoot());
     cout << endl << "Graph1 export" << endl;
-   graph.exportToFile();
+    graph.exportToFile();
 
     GraphAI g2;
     cout << endl << "Graph2 import" << endl;
@@ -137,7 +133,6 @@ int main() {
     }
     cout << endl << "Graph2 export" << endl;
     //g2.exportToFile();
->>>>>>> Stashed changes
 
 
     return 0;
