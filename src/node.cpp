@@ -163,7 +163,7 @@ string Node::getPositionName()
 }
 
 /*/////////////////////////////////////////////////////////////////////////////
-Fonction getPositionName()
+Fonction getWeight()
 
 Auteur : Généré automatiquement
 Nom du projet : Robot Niryo - Puissance 4
@@ -175,6 +175,14 @@ weight_t Node::getWeight()
     return msWeight;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction setWeight(int, int, float)
+
+Auteur : Généré automatiquement
+Nom du projet : Robot Niryo - Puissance 4
+Nom du package : AI
+
+/////////////////////////////////////////////////////////////////////////////*/
 void Node::setWeight(int pnGamePlayed, int pnGameWon, float pnVictoryRate)
 {
     weight_t lsNewWeight = {pnGamePlayed, pnGameWon, pnVictoryRate};
@@ -182,7 +190,7 @@ void Node::setWeight(int pnGamePlayed, int pnGameWon, float pnVictoryRate)
 }
 
 /*/////////////////////////////////////////////////////////////////////////////
-Fonction getPositionName()
+Fonction getChildren()
 
 Auteur : Généré automatiquement
 Nom du projet : Robot Niryo - Puissance 4

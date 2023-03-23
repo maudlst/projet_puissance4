@@ -470,7 +470,6 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     int lnRangeFromPiece;
     lvMemoEmpty[1][1] = -1; 
     lvMemoPlayerTerritory[1][1] = -1; 
-   // gameDisplay(pvBoardGame);
 
     if (pnPlayeur == cnIA)
     {
@@ -480,9 +479,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     {
         lnOpposingPlayer = cnIA;
     }
-    // cout << lnOpposingPlayer << endl;
 
-    // int lnValueOfPosition = 0;
     for (int liDeltaRow = -1; liDeltaRow <= 1; liDeltaRow++)
     {
         for (int liDeltaColumn = -1; liDeltaColumn <= 1; liDeltaColumn++)
@@ -496,10 +493,8 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
                 lnActualRow = pnRowOfMove + liDeltaRow;
                 lnActualColumn = pnColumnOfMove + liDeltaColumn;
                 lnRangeFromPiece = 1;
-                // cout << "HEYE" << lnActualRow << lnActualColumn << pvBoardGame[lnActualRow][lnActualColumn] << endl;
                 while ((lnActualRow < cnSIZE_OF_BOARD && lnActualRow >= 0) && (lnActualColumn < cnSIZE_OF_BOARD && lnActualColumn >= 0) && (pvBoardGame[lnActualRow][lnActualColumn] != lnOpposingPlayer) && lnRangeFromPiece < 4)
                 {
-                    //cout << lnActualRow << lnActualColumn << endl;
                     if (pvBoardGame[lnActualRow][lnActualColumn] == 0)
                     {
                         lvMemoEmpty[liDeltaRow + cnOffsetIndex1][liDeltaColumn + cnOffsetIndex1] += 1;
@@ -575,13 +570,13 @@ Cette fonction a pour but de calculer la valeur des directions autour d'une posi
 Directions possible : vertical, horizontal et les diagonales
  
 Entrées :
-    pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
-    pnPlayeur : le numero du joueur courant
-    pnRowOfMove : la ligne du plateau ou le coup est joue
-    pnColumnOfMove : la colonne du plateau ou le coup est joue
+    pnValueEmpty1 : nombre de cases vides dans le sens 1 
+    pnValueEmpty2 : nombre de cases vides dans le sens 2
+    pnValuePT1 : nombre de cases remplies d'un jeton de meme couleur dans le sens 1 
+    pnValuePT2 : nombre de cases remplies d'un jeton de meme couleur dans le sens 2
 
 Sortie :
-    int : la valeur de la position donnée en parametre
+    int : la valeur de la direction
 
 /////////////////////////////////////////////////////////////////////////////*/
 int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2)
