@@ -21,8 +21,8 @@ But de la fonction :
 void GraphAI::exportToFile() //ecriture
 {
     ofstream lsFile(FILE_NAME);  //Ouverture en ecriture du fichier
-    Node lsCurrentNode;
-    map<string, Node>::iterator liMapIterator;
+    Node *lsCurrentNode;
+    map<string, Node *>::iterator liMapIterator;
     int liNumberSon;
     int *lvWeightsSon;
     string *lwSonsName;
@@ -31,9 +31,9 @@ void GraphAI::exportToFile() //ecriture
     if(lsFile)
     {
         // On s'occupe d'abord de la racine (premiere ligne du fichier)
-        lsFile << msRoot.getPositionName() << " ";
-        lvWeightsSon = msRoot.getWeights();
-        lwSonsName = msRoot.getChildren();
+        lsFile << msRoot->getPositionName() << " ";
+        lvWeightsSon = msRoot->getWeights();
+        lwSonsName = msRoot->getChildren();
         lnSize = 5;
         for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
         {
@@ -51,9 +51,9 @@ void GraphAI::exportToFile() //ecriture
         {
             lsCurrentNode = liMapIterator -> second;
             
-            lsFile << lsCurrentNode.getPositionName() << " ";
-            lvWeightsSon = lsCurrentNode.getWeights();
-            lwSonsName = lsCurrentNode.getChildren();
+            lsFile << lsCurrentNode->getPositionName() << " ";
+            lvWeightsSon = lsCurrentNode->getWeights();
+            lwSonsName = lsCurrentNode->getChildren();
             lnSize = 5;
 
             for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
@@ -110,7 +110,7 @@ void GraphAI::importFromFile()//lecture
             lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
             lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
         }
-        msRoot = lsCurrentNode;
+        //msRoot = lsCurrentNode;
 
         //Traitement des autres noeuds
         while(getline(lsFile, lwLine)){
@@ -124,7 +124,7 @@ void GraphAI::importFromFile()//lecture
                 lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
                 lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
             }
-            msGraphMap.insert(pair<string, Node>(lvLineCuts[0], lsCurrentNode));
+            msGraphMap[lvLineCuts[0]] = &lsCurrentNode;
         }        
     }
     else 
@@ -182,12 +182,12 @@ Sorties :
   lsNodeChild : la structure Node du fils
 
 /////////////////////////////////////////////////////////////////////////////*/
-Node& GraphAI::appendChildToParent(Node& psParent, int pnColunm, string pwPositionValue)
+Node *GraphAI::appendChildToParent(Node *psParent, int pnColunm, string pwPositionValue)
 {
-    psParent.addChild(pnColunm,pwPositionValue);
+    psParent->addChild(pnColunm,pwPositionValue);
     if(msGraphMap.find(pwPositionValue) == msGraphMap.end()) // Le fils n'existe pas dans le graphe
     {
-        msGraphMap[pwPositionValue] = *(new Node(pwPositionValue));
+        msGraphMap[pwPositionValue] = new Node(pwPositionValue);
         return msGraphMap[pwPositionValue];
     }
     else // Le fils existe déja
@@ -206,7 +206,7 @@ Nom du projet : Robot Niryo - Puissance 4
 Nom du package : AI
 
 /////////////////////////////////////////////////////////////////////////////*/
-map<std::string, Node>& GraphAI::getGraphMap()
+map<std::string, Node *>& GraphAI::getGraphMap()
 {
     return msGraphMap;
 }
@@ -219,17 +219,18 @@ Nom du projet : Robot Niryo - Puissance 4
 Nom du package : AI
 
 /////////////////////////////////////////////////////////////////////////////*/
-Node& GraphAI::getRoot()
+Node *GraphAI::getRoot()
 {
     return msRoot;
 }
-
+/*
 void GraphAI::setRoot(Node& psNode)
 {
     msRoot = psNode;
 }
+*/
 
-void GraphAI::addNodetoMap(Node& psNode )
+void GraphAI::addNodetoMap(Node *psNode)
 {
-    msGraphMap[psNode.getPositionName()] = psNode;
+    msGraphMap[psNode->getPositionName()] = psNode;
 }

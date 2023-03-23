@@ -10,16 +10,14 @@ int main() {
 
     GraphAI graph;
 
-    // cout << Node::printPositionName(graph.getRoot().getPositionName()) << endl;
-    Node &actual = graph.getRoot();
-    graph.getGraphMap()["0000000000000000000000000"] = graph.getRoot();
+    Node *actual = graph.getRoot();
     
     for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)
     {
         std::cout << "COUCOU" << it->first << "\n";
     }
     
-    string s = actual.calculateNewPositionValue(0, 0);
+    string s = actual->calculateNewPositionValue(0, 0);
     graph.appendChildToParent(actual, 0, s);
 
     int gvBoardGame[5][5] = {{0}};
@@ -45,8 +43,8 @@ int main() {
                 tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame,gnSelectedColomn, gnCurrentPlayer); 
             }
             lbIsPlayed = false;
-            string s = actual.calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
-            actual = graph.appendChildToParent(actual, gnSelectedColomn, s);
+            string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
+            actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString));
             gameDisplay(gvBoardGame);
             gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
@@ -66,7 +64,8 @@ int main() {
                     cout << "Colonne Pleine !" << endl;
             }
             lbIsPlayed = false;
-            actual = graph.appendChildToParent(actual, gnSelectedColomn, actual.calculateNewPositionValue(gnSelectedColomn, gnMoveCounter));
+            string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
+            actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString)); 
             gameDisplay(gvBoardGame);
             gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
@@ -88,11 +87,10 @@ int main() {
     {
         std::cout << it->first << "\n";
     }
-    s = actual.calculateNewPositionValue(0, 0);
-    graph.appendChildToParent(actual, 0, s);
     
+    //graph.getGraphMap()["0000000000000000000000000"] = *(graph.getRoot());
     graph.exportToFile();
-    
+
 
     return 0;
 }

@@ -17,13 +17,13 @@ class GraphAI{
      * @brief Map contenant le graphe de l'IA
      * 
      */
-    std::map<std::string, Node> msGraphMap;
+    std::map<std::string, Node *> msGraphMap;
     
     /**
      * @brief Le noeud racine du graphe
      * 
      */
-    Node msRoot = *(new Node("0000000000000000000000000"));
+    Node *msRoot = new Node("0000000000000000000000000");
     // Node msActual;
 
     public:
@@ -31,12 +31,12 @@ class GraphAI{
     void exportToFile();
     void importFromFile();
     std::vector<std::string> cutString(std::string pwLine, char pwDelimiter);
-    Node& appendChildToParent(Node& psParent, int pnColunm, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
+    Node *appendChildToParent(Node *psParent, int pnColunm, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
 
     int evaluateKnownPosition();
 
-    std::map<std::string, Node>& getGraphMap();
-    Node& getRoot();
-    void setRoot(Node& psNode);
-    void addNodetoMap(Node& psNode);
+    std::map<std::string, Node *>& getGraphMap();
+    Node *getRoot();
+    //void setRoot(Node& psNode);
+    void addNodetoMap(Node *psNode);
 };
