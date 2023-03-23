@@ -3,7 +3,6 @@ FLAGS=-Wall -g -std=c++17
 PLAY : src/boardGame.cpp src/graphAI.cpp src/node.cpp src/main.cpp
 		g++ $(FLAGS) -o $@ $^
 
-		
 learning : src/boardGame.cpp src/graphAI.cpp src/node.cpp src/learning.cpp
 		g++ $(FLAGS) -o $@ $^
 
