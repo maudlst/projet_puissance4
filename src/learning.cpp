@@ -7,22 +7,22 @@
 using namespace std;
 
 
-void calculateWeights(vector <Node*> pvEncounteredNodes, bool pbAIwon)
+void calculateWeights(vector <Node*> pvEncounteredNodes, bool pbStaleFinish)
 {
   weight_t lsWeights;
+  int lnTailleEncounteredNode = pvEncounteredNodes.size(), lnIterator = 0;
 
   for(Node* lsCurentNode : pvEncounteredNodes)
   {
-    lsWeights =  lsCurentNode->getWeight();
+    lsWeights = lsCurentNode->getWeight();
     lsWeights.mnGamePlayed += 1;
-    if(pbAIwon)
+    if(!pbStaleFinish && (lnTailleEncounteredNode - lnIterator) % 2 == 1)
     {
       lsWeights.mnGameWon += 1;
     }
-    lsWeights.mnVictoryRate = ( lsWeights.mnGameWon / lsWeights.mnGamePlayed ) * 100;
-
-    lsCurentNode->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate );
-
+    lsWeights.mnVictoryRate = (lsWeights.mnGameWon / lsWeights.mnGamePlayed) * 100;
+    lsCurentNode->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
+    lnIterator++;
   }
 }
 
@@ -94,15 +94,14 @@ int main() {
         gnMoveCounter++;
     }
 
+    calculateWeights(gvEncounteredNodes, false);
     if(gnCurrentPlayer == cnIA)
     {
         cout << "Vous avez gagné " << endl;
-        calculateWeights(gvEncounteredNodes, false);
     }
     else
     {
         cout << "Le gagnant est l'IA  " << endl;
-        calculateWeights(gvEncounteredNodes, true);
     }
     cout << "APRES LEARNING" << endl;
     for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)
