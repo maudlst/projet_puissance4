@@ -82,26 +82,27 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
 
 
 /*/////////////////////////////////////////////////////////////////////////////
-Fonction bool isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+Fonction gameStatus whatGameStatus(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 
 Auteur : Maud Lestienne (IATIC-4)
 Nom du projet : Robot Niryo - Puissance 4 
 Nom du package : AI
 
 But de la fonction :
-Cette fonction a pour but de savoir si le jeu est fini ou pas 
+Cette fonction a pour but de connaître le statut actuel du jeu
  
 Entrées :
   pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
   pnPlayer : le numero du joueur
 
 Sortie :
-    : si vrai le jeu est fini
-            sinon le jeu n'est pas fini
+    gnGameWon : si la partie a été gagnée 
+    gnStaleMate : si la partie est nulle 
+    gnGameNotFinished : si la partie n'est pas finie
 
 /////////////////////////////////////////////////////////////////////////////*/
 
-gameStatus isGameFinished(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
+gameStatus whatGameStatus(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer)
 {
     gameStatus lnStatus;
 
@@ -350,6 +351,44 @@ bool isBoardGameFull(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     return lbIsBoardGameFull;
 }
 
+/*/////////////////////////////////////////////////////////////////////////////
+Fonction int moveAtRandom(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+
+Auteur : Arnaud Henches (IATIC-4)
+Nom du projet : Robot Niryo - Puissance 4 
+Nom du package : AI
+
+But de la fonction :
+Cette fonction donne un coup possible dans le plateau au hazard pour le joueur ordinateur 
+ 
+Entrées :
+  pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] : tableau représentant le plateau de jeu
+
+Sortie :
+    int : la colonne a jouer pour faire le mouvement calculer
+
+/////////////////////////////////////////////////////////////////////////////*/
+int moveAtRandom(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
+{
+    int lnRowOfPiece;
+    bool lbIsPiecePlayed;
+    vector<int> lvPossibleMoves;
+    for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
+    {
+        std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
+        if (lbIsPiecePlayed)
+        {
+            lvPossibleMoves.push_back(liIndexColumn);
+        }
+        else 
+        {
+
+        }
+        pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
+    }
+    return lvPossibleMoves[rand() % lvPossibleMoves.size()];
+
+}
 /*/////////////////////////////////////////////////////////////////////////////
 Fonction int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 

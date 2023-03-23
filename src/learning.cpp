@@ -26,81 +26,56 @@ void calculateWeights(vector <Node*> pvEncounteredNodes, bool pbStaleFinish)
   }
 }
 
-int main() {
-
-    GraphAI graph;
+void doGame(GraphAI *graph, string mode)
+{
     vector<Node*> gvEncounteredNodes;
-
-    Node *actual = graph.getRoot();
+    Node *actual = graph->getRoot();
     
-    for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)
-    {
-        std::cout << "COUCOU" << it->first << "\n";
-    }
-    
-    int gvBoardGame[5][5] = {{0}};
-    int gnCurrentPlayer, gnSelectedColomn, lnRowPlayed, gnMoveCounter;
-    gameStatus gnPositionStatus;
+    int lvBoardGame[5][5] = {{0}};
+    int lnCurrentPlayer, lnSelectedColomn, lnRowPlayed, lnMoveCounter;
+    gameStatus lnPositionStatus;
     bool lbIsPlayed;
 
 
-    //gameDisplay(gvBoardGame);
-    gnPositionStatus = gnGameNotFinished;
-    gnCurrentPlayer = cnIA;
-    lbIsPlayed = false;
-    gnMoveCounter = 0;
+    //gameDisplay(lvBoardGame);
+    lnPositionStatus = gnGameNotFinished;
+    lnCurrentPlayer = cnIA;
+    lnMoveCounter = 0;
     
-    gameDisplay(gvBoardGame);
-    //cout << calculateBestMove(gvBoardGame) << endl;
-    while(!gnPositionStatus)
+    gameDisplay(lvBoardGame);
+    //cout << calculateBestMove(lvBoardGame) << endl;
+    while(lnPositionStatus == gnGameNotFinished)
     {
-        if(gnCurrentPlayer == cnIA)
+        lbIsPlayed = false;
+        while (!lbIsPlayed)
         {
-            cout << "C'est le tour de l'IA " << endl;
-            while (!lbIsPlayed)
+            if(mode.compare("rand")) 
             {
-                gnSelectedColomn = calculateBestMove(gvBoardGame);
-                tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame,gnSelectedColomn, gnCurrentPlayer); 
+                // 
             }
-            lbIsPlayed = false;
-            string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
-            actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString));
-            gvEncounteredNodes.push_back(actual);
-            gameDisplay(gvBoardGame);
-            gnPositionStatus = isGameFinished(gvBoardGame,gnCurrentPlayer);
-
-            gnCurrentPlayer = cnPLAYER;
-        }
-        else 
-        {
-            cout << "C est votre tour "  << endl;
-            
-            while (!lbIsPlayed)
-            {
-                cout << "Sur quelle colonne voulez vous jouez (0 à 4)"<< endl;
-                cin >> gnSelectedColomn;
-                gnSelectedColomn = gnSelectedColomn % 5;
-                tie(lbIsPlayed,lnRowPlayed) = play(gvBoardGame,gnSelectedColomn,gnCurrentPlayer);
-                if (!lbIsPlayed)
-                    cout << "Colonne Pleine !" << endl;
+            else if (mode.compare("algo"))
+            { 
+                lnSelectedColomn = calculateBestMove(lvBoardGame);
             }
-            lbIsPlayed = false;
-            string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
-            actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString)); 
-            gvEncounteredNodes.push_back(actual);
-            gameDisplay(gvBoardGame);
-            gnPositionStatus = isGameFinished(gvBoardGame,gnCurrentPlayer);
-
-            gnCurrentPlayer = cnIA; 
+            lnSelectedColomn = calculateBestMove(lvBoardGame);
+            tie(lbIsPlayed,lnRowPlayed) = play(lvBoardGame,lnSelectedColomn, lnCurrentPlayer); 
         }
-        gnMoveCounter++;
+        string lwTempString = actual->calculateNewPositionValue(lnSelectedColomn, lnMoveCounter);
+        actual = graph->appendChildToParent(actual, lnSelectedColomn, move(lwTempString));
+        gvEncounteredNodes.push_back(actual);
+        gameDisplay(lvBoardGame);
+        lnPositionStatus = whatGameStatus(lvBoardGame,lnCurrentPlayer);
+
+        lnCurrentPlayer = (lnCurrentPlayer) % 2 + 1;
+        
+        lnMoveCounter++;
     }
 
-    if (gnPositionStatus != gnStaleMate)
+    if (lnPositionStatus != gnStaleMate)
     {
         calculateWeights(gvEncounteredNodes, false);
 
-        if(gnCurrentPlayer == cnIA)
+        if(lnCurrentPlayer == cnIA)
         {
             cout << "Vous avez gagné  " << endl;
         }
@@ -113,27 +88,28 @@ int main() {
     {
         cout << "Le Match est ex aequo  " << endl;
     }
-    cout << "APRES LEARNING" << endl;
-    for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)
+
+}
+
+int main(int argc, char **argv) // nb_parties, mode
+{
+    if (argc != 3)
     {
-        std::cout << it->first << "\n";
+        printf("Erreur nombre d'arguments invalide.\nUtilisation : ./<executable> <nb_parties> <mode>\n");
     }
-    
-    cout << endl << "Graph1 export" << endl;
-    graph.exportToFile();
-
-    GraphAI g2;
-    cout << endl << "Graph2 import" << endl;
-    g2.importFromFile();
-    cout << endl << "avant export " << endl;
-    cout << g2.getRoot()->getPositionName() << endl;
-    for(auto it = g2.getGraphMap().cbegin(); it != g2.getGraphMap().cend(); ++it)
+    else 
     {
-        std::cout << it->first << "\n";
+        int lnNbReps = atoi(argv[1]);
+        string mode(argv[1]);
+        GraphAI graph;
+        for (int i = 0 ; i < lnNbReps; i++)
+        {
+            doGame(&graph, mode);
+        }
+
+        cout << endl << "Graph1 export" << endl;
+        graph.exportToFile();
+
+        return 0;
     }
-    cout << endl << "Graph2 export" << endl;
-    //g2.exportToFile();
-
-
-    return 0;
 }
