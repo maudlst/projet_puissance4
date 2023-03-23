@@ -24,47 +24,57 @@ void GraphAI::exportToFile() //ecriture
     Node *lsCurrentNode;
     map<string, Node *>::iterator liMapIterator;
     int liNumberSon;
-    weight_t lvWeightSon;
     string *lwSonsName;
     int lnSize;
 
     if(lsFile)
     {
         // On s'occupe d'abord de la racine (premiere ligne du fichier)
+        //Ecriture du nom du noeud racine
         lsFile << msRoot->getPositionName() << " ";
-        lvWeightSon = msRoot->getWeight();
+        cout << msRoot->getPositionName() << " ";
+        
         lwSonsName = msRoot->getChildren();
         lnSize = 5;
+        //Pour chaque fils existant ont ecrit son indice dans le tableau de fils et son nom
         for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
         {
-            if(lvWeightSon.mnVictoryRate >=  0)
+            if(lwSonsName[liNumberSon] != "")
             {
-                lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << lvWeightSon.mnGamePlayed << " "<< lvWeightSon.mnGameWon << " " << lvWeightSon.mnVictoryRate << " ";
+                lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " ";
+                cout << liNumberSon << " " << lwSonsName[liNumberSon] << " ";
             }
             else // ne rien faire
             {}
         }
         lsFile << endl;
+        cout << endl;
 
         //On s'occupe ensuite des autres noeuds du graphe
         for(liMapIterator = msGraphMap.begin(); liMapIterator != msGraphMap.end(); liMapIterator++)
         {
             lsCurrentNode = liMapIterator -> second;
-            
+            //Ecriture du nom du noeud coourant et de ses informations concernant son poids
             lsFile << lsCurrentNode->getPositionName() << " ";
+            cout << lsCurrentNode->getPositionName() << " ";
+            lsFile << lsCurrentNode->getWeight().mnGamePlayed << " "  << lsCurrentNode->getWeight().mnGameWon << " " << lsCurrentNode->getWeight().mnVictoryRate << " ";
+            cout << lsCurrentNode->getWeight().mnGamePlayed << " "  << lsCurrentNode->getWeight().mnGameWon << " " << lsCurrentNode->getWeight().mnVictoryRate << " ";
+            
             lwSonsName = lsCurrentNode->getChildren();
             lnSize = 5;
-
+            //Pour chaque fils existant ont ecrit son indice dans le tableau de fils et son nom
             for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
             {
                 if(lwSonsName[liNumberSon] != "")
                 {
-                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnGamePlayed << " "<< msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnGameWon << " " << msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnVictoryRate << " ";
+                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " ";
+                    cout << liNumberSon << " " << lwSonsName[liNumberSon] << " ";
                 }
                 else // ne rien faire
                 {}
             }
             lsFile << endl;
+            cout << endl;
         }
     }
     else // Probleme ouverture du fichier
@@ -102,26 +112,30 @@ void GraphAI::importFromFile()//lecture
         Node lsCurrentNode(lvLineCuts[0]);
         lvSonsName = lsCurrentNode.getChildren();
 
-        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 5)
+        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
         {
             lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
-            lsCurrentNode.setWeight(stoi(lvLineCuts[liIndex + 2]), stoi(lvLineCuts[liIndex + 3]), stof(lvLineCuts[liIndex + 4]));
-        }
+            cout << stoi(lvLineCuts[liIndex]) << " " << lvLineCuts[liIndex + 1] << " ";
         
-        //msRoot = lsCurrentNode;
-
+        }
+        cout << msRoot->getPositionName() << " " << endl;
+        msRoot = &lsCurrentNode;
+        cout << msRoot->getPositionName() << " " << endl;
         //Traitement des autres noeuds
         while(getline(lsFile, lwLine)){
             lvLineCuts = cutString(lwLine,' ');
             Node lsCurrentNode(lvLineCuts[0]);
+            lsCurrentNode.setWeight(stoi(lvLineCuts[1]), stoi(lvLineCuts[2]), stof(lvLineCuts[3]));
             lvSonsName = lsCurrentNode.getChildren();
 
-            for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 5)
+            for(liIndex = 4; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
             {
                 lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
-                lsCurrentNode.setWeight(stoi(lvLineCuts[liIndex + 2]), stoi(lvLineCuts[liIndex + 3]), stof(lvLineCuts[liIndex + 4]));
+                cout << stoi(lvLineCuts[liIndex]) << " " << lvLineCuts[liIndex + 1] << " ";
+                
             }
             msGraphMap[lvLineCuts[0]] = &lsCurrentNode;
+            cout << endl;
         }        
     }
     else 
