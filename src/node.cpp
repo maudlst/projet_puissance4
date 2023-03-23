@@ -14,6 +14,7 @@ But de la fonction :
 /////////////////////////////////////////////////////////////////////////////*/
 Node::Node()
 {
+    mvWeight = {0, 0, 0};
 
 }
 
@@ -33,10 +34,11 @@ Entrées :
 /////////////////////////////////////////////////////////////////////////////*/
 Node::Node(string pwPositionName)
 {
+    mvWeight = {0, 0, 0};
+
     mwPositionName = pwPositionName;
     for (int i = 0; i < 5; i++)
     {
-        mvWeights[i] = -1;
         mvChildren[i] = "";
     }
 }

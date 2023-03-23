@@ -18,6 +18,12 @@
  */
 #define CHAR_SEPARATOR_LINE "\n"
 
+typedef struct weight_s {
+	int mnGamePlayed;
+	int mnGameWon;
+	float mnVictoryRate;
+} weight_t;
+
 /**
  * @brief Classe reprensentant un noeud du graphe
  * 
@@ -31,11 +37,11 @@ class Node
      */
     std::string mvChildren[5];
     /**
-     * @brief Tableau contenant le poids des fils du noeud 
+     * @brief Valeurs indiquant le poids de l'arete pour atteindre ce noeud
      * (le poids est un calcul de reussite en suivant le chemin de ce fils)
      * 
      */
-    int mvWeights[5];
+    weight_t msWeight;
     
     /**
      * @brief Chaine de caractere representant le plateau de jeu et des pions joués
@@ -56,10 +62,9 @@ class Node
     std::string calculateNewPositionValue(int pnColumnChosen, int pnCompteurDeCoup);
 
     static std::string printPositionName(std::string pwPositionName);
-
     
     std::string getPositionName();
     // void setPositionName(std::string pwNewPositionName);
-    int *getWeights();
+    weight_t getWeight();
     std::string *getChildren();
 };
