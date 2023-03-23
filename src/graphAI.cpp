@@ -37,9 +37,9 @@ void GraphAI::exportToFile() //ecriture
         lnSize = 5;
         for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
         {
-            if(lvWeightSon[liNumberSon] >=  0)
+            if(lvWeightSon.mnVictoryRate >=  0)
             {
-                lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << lvWeightsSon[liNumberSon] << " ";
+                lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << lvWeightSon.mnGamePlayed << " "<< lvWeightSon.mnGameWon << " " << lvWeightSon.mnVictoryRate << " ";
             }
             else // ne rien faire
             {}
@@ -57,9 +57,9 @@ void GraphAI::exportToFile() //ecriture
 
             for(liNumberSon = 0; liNumberSon < lnSize; liNumberSon++)
             {
-                if(msGraphMap[lwSonsName[liNumberSon]]->getWeight() >= 0)
+                if(lwSonsName[liNumberSon] != "")
                 {
-                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << msGraphMap[lwSonsName[liNumberSon]]->getWeight() << " ";
+                    lsFile << liNumberSon << " " << lwSonsName[liNumberSon] << " " << msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnGamePlayed << " "<< msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnGameWon << " " << msGraphMap[lwSonsName[liNumberSon]]->getWeight().mnVictoryRate << " ";
                 }
                 else // ne rien faire
                 {}
@@ -91,7 +91,6 @@ void GraphAI::importFromFile()//lecture
     int liIndex;
     vector<string> lvLineCuts;
     string *lvSonsName;
-    int *lvWeightsSons;
     string lwLine;
     string lwNodeName;
 
@@ -102,13 +101,13 @@ void GraphAI::importFromFile()//lecture
         lvLineCuts = cutString(lwLine,' ');
         Node lsCurrentNode(lvLineCuts[0]);
         lvSonsName = lsCurrentNode.getChildren();
-        lvWeightsSons = lsCurrentNode.getWeight();
 
-        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
+        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 5)
         {
             lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
-            lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
+            lsCurrentNode.setWeight(stoi(lvLineCuts[liIndex + 2]), stoi(lvLineCuts[liIndex + 3]), stof(lvLineCuts[liIndex + 4]));
         }
+        
         //msRoot = lsCurrentNode;
 
         //Traitement des autres noeuds
@@ -116,12 +115,11 @@ void GraphAI::importFromFile()//lecture
             lvLineCuts = cutString(lwLine,' ');
             Node lsCurrentNode(lvLineCuts[0]);
             lvSonsName = lsCurrentNode.getChildren();
-            lvWeightsSons = lsCurrentNode.getWeight();
 
-            for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 3)
+            for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 5)
             {
                 lvSonsName[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
-                lvWeightsSons[stoi(lvLineCuts[liIndex])] = stoi(lvLineCuts[liIndex + 2]);
+                lsCurrentNode.setWeight(stoi(lvLineCuts[liIndex + 2]), stoi(lvLineCuts[liIndex + 3]), stof(lvLineCuts[liIndex + 4]));
             }
             msGraphMap[lvLineCuts[0]] = &lsCurrentNode;
         }        

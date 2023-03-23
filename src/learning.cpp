@@ -2,13 +2,34 @@
 #include "graphAI.hpp"
 #include <stdio.h>
 #include <iostream>
-
+#include <vector>
 
 using namespace std;
+
+
+void calculateWeights(vector <Node*> pvEncounteredNodes, bool pbAIwon)
+{
+  weight_t lsWeights;
+
+  for(Node* lsCurentNode : pvEncounteredNodes)
+  {
+    lsWeights =  lsCurentNode->getWeight();
+    lsWeights.mnGamePlayed += 1;
+    if(pbAIwon)
+    {
+      lsWeights.mnGameWon += 1;
+    }
+    lsWeights.mnVictoryRate = ( lsWeights.mnGameWon / lsWeights.mnGamePlayed ) * 100;
+
+    lsCurentNode->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate );
+
+  }
+}
 
 int main() {
 
     GraphAI graph;
+    vector<Node*> gvEncounteredNodes;
 
     Node *actual = graph.getRoot();
     
@@ -42,6 +63,7 @@ int main() {
             lbIsPlayed = false;
             string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
             actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString));
+            gvEncounteredNodes.push_back(actual);
             gameDisplay(gvBoardGame);
             gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
@@ -63,6 +85,7 @@ int main() {
             lbIsPlayed = false;
             string lwTempString = actual->calculateNewPositionValue(gnSelectedColomn, gnMoveCounter);
             actual = graph.appendChildToParent(actual, gnSelectedColomn, move(lwTempString)); 
+            gvEncounteredNodes.push_back(actual);
             gameDisplay(gvBoardGame);
             gbIsGameFinished = isGameFinished(gvBoardGame,gnCurrentPlayer);
 
@@ -74,10 +97,12 @@ int main() {
     if(gnCurrentPlayer == cnIA)
     {
         cout << "Vous avez gagné " << endl;
+        calculateWeights(gvEncounteredNodes, false);
     }
     else
     {
         cout << "Le gagnant est l'IA  " << endl;
+        calculateWeights(gvEncounteredNodes, true);
     }
     cout << "APRES LEARNING" << endl;
     for(auto it = graph.getGraphMap().cbegin(); it != graph.getGraphMap().cend(); ++it)

@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <vector>
 /**
  * @brief  Le nombre de caractere qui represente une case dans une chaine de carractere
  * 
@@ -23,6 +24,7 @@ typedef struct weight_s {
 	int mnGameWon;
 	float mnVictoryRate;
 } weight_t;
+
 
 /**
  * @brief Classe reprensentant un noeud du graphe
