@@ -1,7 +1,10 @@
-
 .vscode/*
 *.out
 PLAY
 test
 learning
+*.txt
 *.json
+*
+!/**/
+!*.*
