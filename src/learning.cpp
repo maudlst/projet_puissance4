@@ -119,7 +119,25 @@ int main() {
         std::cout << it->first << "\n";
     }
     
+<<<<<<< Updated upstream
     graph.exportToFile();
+=======
+    //graph.getGraphMap()["0000000000000000000000000"] = *(graph.getRoot());
+    cout << endl << "Graph1 export" << endl;
+   graph.exportToFile();
+
+    GraphAI g2;
+    cout << endl << "Graph2 import" << endl;
+    g2.importFromFile();
+    cout << endl << "avant export " << endl;
+    cout << g2.getRoot()->getPositionName() << endl;
+    for(auto it = g2.getGraphMap().cbegin(); it != g2.getGraphMap().cend(); ++it)
+    {
+        std::cout << it->first << "\n";
+    }
+    cout << endl << "Graph2 export" << endl;
+    //g2.exportToFile();
+>>>>>>> Stashed changes
 
 
     return 0;
