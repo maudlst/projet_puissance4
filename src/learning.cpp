@@ -17,9 +17,6 @@ int main() {
         std::cout << "COUCOU" << it->first << "\n";
     }
     
-    string s = actual->calculateNewPositionValue(0, 0);
-    graph.appendChildToParent(actual, 0, s);
-
     int gvBoardGame[5][5] = {{0}};
     int gnCurrentPlayer, gnSelectedColomn, lnRowPlayed, gnMoveCounter;
     bool gbIsGameFinished, lbIsPlayed;
