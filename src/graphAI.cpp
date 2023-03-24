@@ -201,6 +201,25 @@ Node *GraphAI::appendChildToParent(Node *psParent, int pnColunm, string pwPositi
     }
 }
 
+void GraphAI::calculateWeights(vector <string> pvEncounteredNodes, bool pbStaleFinish)
+{
+  weight_t lsWeights;
+  int lnTailleEncounteredNode = pvEncounteredNodes.size(), lnIterator = 0;
+
+  for(string lsCurentPositionName : pvEncounteredNodes)
+  {
+    lsWeights = msGraphMap[lsCurentPositionName]->getWeight();
+    lsWeights.mnGamePlayed += 1;
+    if(!pbStaleFinish && (lnTailleEncounteredNode - lnIterator) % 2 == 1)
+    {
+      lsWeights.mnGameWon += 1;
+    }
+    lsWeights.mnVictoryRate = (lsWeights.mnGameWon / lsWeights.mnGamePlayed) * 100;
+    msGraphMap[lsCurentPositionName]->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
+    lnIterator++;
+  }
+}
+
 /*************   GET and SET    **************/
 
 /*/////////////////////////////////////////////////////////////////////////////
@@ -228,19 +247,13 @@ Node *GraphAI::getRoot()
 {
     return msRoot;
 }
-/*
-void GraphAI::setRoot(Node& psNode)
-{
-    msRoot = psNode;
-}
-*/
 
 void GraphAI::addNodetoMap(Node *psNode)
 {
     msGraphMap[psNode->getPositionName()] = psNode;
 }
 
-
+/*************   Destroyer    **************/
 void GraphAI::deleteNodes()
 {
     for(auto it = msGraphMap.cbegin(); it != msGraphMap.cend(); ++it)
