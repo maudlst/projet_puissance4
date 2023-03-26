@@ -168,6 +168,47 @@ vector<string> GraphAI::cutString(string pwLine, char pwDelimiter)
     return lvLineCuts;
 }
 
+int GraphAI::playAI(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD],  Node *psActual )
+{
+    int lwChildSelected = -1;
+    int lnSelectedColomn, liIndex;
+
+    for(liIndex = 0; liIndex < 5;  liIndex++)
+    {
+        if(psActual->getChildren()[liIndex] != "")
+        {
+            if(msGraphMap.find(psActual->getChildren()[liIndex]) != msGraphMap.end())
+            {
+                if(msGraphMap[psActual->getChildren()[liIndex]]->getWeight().mnVictoryRate >= 50)
+                {
+                    if(lwChildSelected == -1)
+                    {
+                        lwChildSelected = liIndex;
+                    }
+                    else
+                    {
+                        if(msGraphMap[psActual->getChildren()[liIndex]]->getWeight().mnVictoryRate > msGraphMap[psActual->getChildren()[lwChildSelected]]->getWeight().mnVictoryRate)
+                        {
+                            lwChildSelected = liIndex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (lwChildSelected != -1)
+    {
+        lnSelectedColomn = lwChildSelected;
+    }
+    else 
+    {
+        lnSelectedColomn = calculateBestMove(pvBoardGame);
+    }
+
+    return lnSelectedColomn ;
+}
+
 /*/////////////////////////////////////////////////////////////////////////////
 Fonction appendChildToParent()
 
