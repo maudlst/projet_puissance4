@@ -1,3 +1,5 @@
+#ifndef GRAPHAI
+#define GRAPHAI
 #include <map>
 #include <string>
 #include <iostream>
@@ -33,14 +35,14 @@ class GraphAI{
     void importFromFile();
     std::vector<std::string> cutString(std::string pwLine, char pwDelimiter);
     Node *appendChildToParent(Node *psParent, int pnColunm, std::string pwPositionValue); // Si le fils existe déja l'ajouter au parent Sinon on le créer et on le rajoute au parent
-    void calculateWeights(std::vector<std::string> pvEncounteredNodes, bool pbStaleFinish);
+    void calculateWeights(std::vector<std::string *> pvEncounteredNodes, bool pbStaleFinish);
     int playAI(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD],  Node *psActual );
     int evaluateKnownPosition();
 
     std::map<std::string, Node *>& getGraphMap();
     Node *getRoot();
-    //void setRoot(Node& psNode);
     void addNodetoMap(Node *psNode);
 
     void deleteNodes();
 };
+#endif

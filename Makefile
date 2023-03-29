@@ -1,13 +1,14 @@
-FLAGS=-Wall -g -std=c++17
+CC=clang++
+FLAGS=-Wall -g -O0 -std=c++17 -D_GLIBCXX_DEBUG
 
 PLAY : src/boardGame.cpp src/graphAI.cpp src/node.cpp src/game.cpp
-		g++ $(FLAGS) -o $@ $^
+		$(CC) $(FLAGS) -o $@ $^
 
 learning : src/boardGame.cpp src/graphAI.cpp src/node.cpp src/learning.cpp
-		g++ $(FLAGS) -o $@ $^
+		$(CC) $(FLAGS) -o $@ $^
 
 test : src/boardGame.cpp src/graphAI.cpp src/node.cpp src/testAI.cpp
-		g++ $(FLAGS) -o $@ $^
+		$(CC) $(FLAGS) -o $@ $^
 
 clean : 
 		rm -f src/*~ *~ test learning PLAY src/files/graphAI.txt

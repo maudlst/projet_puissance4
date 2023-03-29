@@ -1,5 +1,6 @@
 #include "graphAI.hpp"
 
+
 using namespace std;
 
 GraphAI::GraphAI()
@@ -217,7 +218,7 @@ Nom du projet : Robot Niryo - Puissance 4
 Nom du package : AI
 
 But de la fonction :
-  Découpe une ligne selon un délimiteur en retirant les retours à la ligne 
+    ajoute le fils(string) à un père.  
 
 Entrées :
   psParent : Le père 
@@ -242,21 +243,21 @@ Node *GraphAI::appendChildToParent(Node *psParent, int pnColunm, string pwPositi
     }
 }
 
-void GraphAI::calculateWeights(vector <string> pvEncounteredNodes, bool pbStaleFinish)
+void GraphAI::calculateWeights(vector <string *> pvEncounteredNodes, bool pbStaleFinish)
 {
   weight_t lsWeights;
   int lnTailleEncounteredNode = pvEncounteredNodes.size(), lnIterator = 0;
 
-  for(string lsCurentPositionName : pvEncounteredNodes)
+  for(string *lsCurentPositionName : pvEncounteredNodes)
   {
-    lsWeights = msGraphMap[lsCurentPositionName]->getWeight();
+    lsWeights = msGraphMap[*lsCurentPositionName]->getWeight();
     lsWeights.mnGamePlayed += 1;
     if(!pbStaleFinish && (lnTailleEncounteredNode - lnIterator) % 2 == 1)
     {
       lsWeights.mnGameWon += 1;
     }
     lsWeights.mnVictoryRate = (lsWeights.mnGameWon / lsWeights.mnGamePlayed) * 100;
-    msGraphMap[lsCurentPositionName]->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
+    msGraphMap[*lsCurentPositionName]->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
     lnIterator++;
   }
 }

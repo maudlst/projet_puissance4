@@ -1,3 +1,5 @@
+#ifndef BOARDGAME
+#define BOARDGAME
 #include <stdio.h>
 #include <iostream> 
 #include <tuple>
@@ -40,6 +42,11 @@
  * 
  */
 #define cnValueOf3Piece 9
+/**
+ * @brief Valeur maximal pour un alignement de 4 jetons 
+ * 
+ */
+#define cnMaxValueWhen4Piece cnValueOf3Piece * 4 + 1
 
 void gameDisplay(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD]);
 std::tuple<bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer);
@@ -56,3 +63,4 @@ int moveAtRandom(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD]);
 int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD]);
 int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayeur, int pnRowOfMove, int pnColumnOfMove);
 int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2);
+#endif

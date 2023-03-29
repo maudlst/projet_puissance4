@@ -567,7 +567,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     }
     else 
     {
-        return numeric_limits<int>::max();
+        return cnMaxValueWhen4Piece;
     }
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[1][0], lvMemoEmpty[1][2], lvMemoPlayerTerritory[1][0], lvMemoPlayerTerritory[1][2]);
     if (lnDirectionValue >= 0)
@@ -576,7 +576,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     }
     else 
     {
-        return numeric_limits<int>::max();
+        return cnMaxValueWhen4Piece;
     }
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[2][0], lvMemoEmpty[0][2], lvMemoPlayerTerritory[2][0], lvMemoPlayerTerritory[0][2]);
     if (lnDirectionValue >= 0)
@@ -585,7 +585,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     }
     else 
     {
-        return numeric_limits<int>::max();
+        return cnMaxValueWhen4Piece;
     }
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[0][1], lvMemoEmpty[2][1], lvMemoPlayerTerritory[0][1], lvMemoPlayerTerritory[2][1]);
     if (lnDirectionValue >= 0)
@@ -594,7 +594,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     }
     else 
     {
-        return numeric_limits<int>::max();
+        return cnMaxValueWhen4Piece;
     }
     
     return lnPositionValue;
@@ -638,6 +638,7 @@ int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1
     }
     else 
     {
+        printf("ERROR");
         return 500; // erreur si l'algo exécute ce else
     }
 }

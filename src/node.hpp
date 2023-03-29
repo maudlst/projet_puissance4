@@ -1,3 +1,5 @@
+#ifndef NODE
+#define NODE
 #include <string>
 #include <iostream>
 #include <vector>
@@ -71,3 +73,4 @@ class Node
     void setWeight(int pnGamePlayed, int pnGameWon, float pnVictoryRate);
     std::string *getChildren();
 };
+#endif
