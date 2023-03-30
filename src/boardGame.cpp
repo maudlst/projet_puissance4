@@ -409,9 +409,9 @@ Sortie :
 int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
 {
     int lnColumnOfBestMoveFor1 = -1;
-    int lnBestMoveValueFor1 = 0;
+    int lnBestMoveValueFor1 = -2;
     int lnColumnOfBestMoveFor2 = -1;
-    int lnBestMoveValueFor2 = 0;
+    int lnBestMoveValueFor2 = -2;
     
 
     int lnRowOfPiece;
