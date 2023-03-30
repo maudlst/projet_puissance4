@@ -32,7 +32,7 @@ void GraphAI::exportToFile() //ecriture
     {
         // On s'occupe d'abord de la racine (premiere ligne du fichier)
         //Ecriture du nom du noeud racine
-        lsFile << msRoot->getPositionName() << " ";
+       /* lsFile << msRoot->getPositionName() << " ";
         cout << msRoot->getPositionName() << " ";
         
         lwSonsName = msRoot->getChildren();
@@ -50,6 +50,7 @@ void GraphAI::exportToFile() //ecriture
         }
         lsFile << endl;
         cout << endl;
+        */
 
         //On s'occupe ensuite des autres noeuds du graphe
         for(liMapIterator = msGraphMap.begin(); liMapIterator != msGraphMap.end(); liMapIterator++)
@@ -110,7 +111,7 @@ void GraphAI::importFromFile()//lecture
         getline(lsFile, lwLine);
         lvLineCuts = cutString(lwLine,' ');
 
-        for(liIndex = 1; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
+        for(liIndex = 4 ; liIndex < (int)lvLineCuts.size(); liIndex+= 2)
         {
             msRoot->getChildren()[stoi(lvLineCuts[liIndex])] = lvLineCuts[liIndex + 1];
             cout << stoi(lvLineCuts[liIndex]) << " " << lvLineCuts[liIndex + 1] << " ";
@@ -243,23 +244,23 @@ void GraphAI::appendChildToParent(string psParent, int pnColunm, string pwPositi
     }
 }
 
-void GraphAI::calculateWeights(vector <string *> pvEncounteredNodes, bool pbStaleFinish)
+void GraphAI::calculateWeights(vector <string> pvEncounteredNodes, bool pbStaleFinish)
 {
-  weight_t lsWeights;
-  int lnTailleEncounteredNode = pvEncounteredNodes.size(), lnIterator = 0;
-
-  for(string *lsCurentPositionName : pvEncounteredNodes)
-  {
-    lsWeights = msGraphMap[*lsCurentPositionName]->getWeight();
-    lsWeights.mnGamePlayed += 1;
-    if(!pbStaleFinish && (lnTailleEncounteredNode - lnIterator) % 2 == 1)
+    weight_t lsWeights;
+    int lnTailleEncounteredNode = pvEncounteredNodes.size(), lnIterator = 0;
+    for(string lsCurentPositionName : pvEncounteredNodes)
     {
-      lsWeights.mnGameWon += 1;
+        cout << "Nom position : "<< lsCurentPositionName << endl;
+        lsWeights = msGraphMap[lsCurentPositionName]->getWeight();
+        lsWeights.mnGamePlayed += 1;
+        if(!pbStaleFinish && (lnTailleEncounteredNode - lnIterator) % 2 == 1)
+        {
+            lsWeights.mnGameWon += 1;
+        }
+        lsWeights.mnVictoryRate = (lsWeights.mnGameWon / lsWeights.mnGamePlayed) * 100;
+        msGraphMap[lsCurentPositionName]->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
+        lnIterator++;
     }
-    lsWeights.mnVictoryRate = (lsWeights.mnGameWon / lsWeights.mnGamePlayed) * 100;
-    msGraphMap[*lsCurentPositionName]->setWeight(lsWeights.mnGamePlayed, lsWeights.mnGameWon, lsWeights.mnVictoryRate);
-    lnIterator++;
-  }
 }
 
 /*************   GET and SET    **************/

@@ -19,4 +19,4 @@ test : clean src/boardGame.cpp src/graphAI.cpp src/node.cpp src/testAI.cpp
 		$(CC) $(FLAGS) -o $@ $^
 
 clean : 
-		rm -f src/*~ *~ test learning PLAY src/files/graphAI.txt
+		rm -f src/*~ *~ test learning PLAY 

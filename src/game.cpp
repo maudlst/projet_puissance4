@@ -9,12 +9,13 @@ int main() {
 
     GraphAI graph;
     graph.importFromFile();
+    map<std::string, Node *>& lsGraphMap = graph.getGraphMap();
     vector<string> lvEncounteredPositions;
     lvEncounteredPositions.reserve(cnSIZE_OF_BOARD * cnSIZE_OF_BOARD);
     vector<string>::iterator lnEncounteredIterator;
     lnEncounteredIterator = lvEncounteredPositions.begin();
 
-    Node *lsActual = graph.getRoot();
+    string lsActual = graph.getRoot()->getPositionName();
     
     int lvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] = {{0}};
     int lnCurrentPlayer, lnSelectedColomn, lnRowPlayed, lnMoveCounter;
@@ -38,6 +39,7 @@ int main() {
             {
                 // Fonction a faire
                 //lnSelectedColomn = calculateBestMove(lvBoardGame);
+                lnSelectedColomn = graph.playAI(lvBoardGame, lsGraphMap[lsActual]);
                 tie(lbIsPlayed,lnRowPlayed) = play(lvBoardGame, lnSelectedColomn, lnCurrentPlayer); 
             }
         }
@@ -55,10 +57,11 @@ int main() {
                     cout << "Colonne Pleine !" << endl;
             }
         }
-        string lwTempString = lsActual->calculateNewPositionValue(lnSelectedColomn, lnMoveCounter);
-        lsActual = graph.appendChildToParent(lsActual, lnSelectedColomn, move(lwTempString));
-
-        lnEncounteredIterator = lvEncounteredPositions.insert(lnEncounteredIterator , lsActual->getPositionName());
+        string lwNextNodeRepr = lsGraphMap[lsActual]->calculateNewPositionValue(lnSelectedColomn, lnMoveCounter);
+        graph.appendChildToParent(lsActual, lnSelectedColomn, lwNextNodeRepr);
+        lsActual = move(lwNextNodeRepr);
+ 
+        lnEncounteredIterator = lvEncounteredPositions.insert(lnEncounteredIterator, lsActual);
         
         gameDisplay(lvBoardGame);
         lnPositionStatus = whatGameStatus(lvBoardGame,lnCurrentPlayer);
@@ -73,8 +76,7 @@ int main() {
 
     if (lnPositionStatus != gnStaleMate)
     {
-        graph.calculateWeights(lvEncounteredPositions, false);
-
+         graph.calculateWeights(lvEncounteredPositions, false);
         if(lnCurrentPlayer == cnIA)
         {
             cout << "Vous avez gagné  " << endl;
@@ -86,6 +88,7 @@ int main() {
     }
     else 
     {
+        graph.calculateWeights(lvEncounteredPositions, true);
         cout << "Le Match est ex aequo  " << endl;
     }
 
