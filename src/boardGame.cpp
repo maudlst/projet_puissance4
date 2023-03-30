@@ -75,6 +75,7 @@ tuple <bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pn
             liIndexRow++;
         }
     }
+    cout << "SI liIndexRow = 5 lbPlayed  = false \t\t liIndexRow :" << liIndexRow << "et lbPlayed :" << lbPlayed << endl;
 
     return make_tuple(lbPlayed, liIndexRow);
 }
@@ -450,7 +451,8 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     bool lbIsPiecePlayed;
     int lnValuePosition;
     printf("HEY\n");
-    for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
+    int liIndexColumn = 0;
+    for(; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
         if (lbIsPiecePlayed)
@@ -466,16 +468,16 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
             {
                 // la meilleure valeur ne change pas
             }
+            pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
         }
         else 
         {
-
+            // le coup n'est pas possible donc pas besoin de replacer la piece 
         }
-        pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
     //cout << cnIA << " : " << lnColumnOfBestMoveFor1 << " : " << lnBestMoveValueFor1 << endl;
-
-    for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
+    liIndexColumn = 0;
+    for(; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnPLAYER); // joue temporairement le coup à tester
         if (lbIsPiecePlayed)
@@ -492,12 +494,12 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
                 // la meilleure valeur ne change pas
             }
             
+            pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
         }
         else 
         {
-            
+            // le coup n'est pas possible donc pas besoin de replacer la piece 
         }
-        pvBoardGame[lnRowOfPiece][liIndexColumn] = 0; // reset le coup ayant été testé
     }
    // cout << cnPLAYER << " : " << lnColumnOfBestMoveFor2 << " : " << lnBestMoveValueFor2 << endl;
 

@@ -35,12 +35,16 @@ int main() {
         if(lnCurrentPlayer == cnIA)
         {
             cout << "C est le tour de l'IA " << endl;
+cout << "\t\t\t1:" << lsActual << endl;
             while (!lbIsPlayed)
             {
+cout << "\t\t\t2:" << lsActual << endl;
                 // Fonction a faire
-                //lnSelectedColomn = calculateBestMove(lvBoardGame);
+cout << "\t\t\t3:" << lsActual << endl;
                 lnSelectedColomn = graph.playAI(lvBoardGame, lsGraphMap[lsActual]);
+cout << "\t\t\t4:" << lsActual << endl;
                 tie(lbIsPlayed,lnRowPlayed) = play(lvBoardGame, lnSelectedColomn, lnCurrentPlayer); 
+cout << "\t\t\t5:" << lsActual << endl;
             }
         }
         else 

@@ -65,7 +65,7 @@ void doGame(GraphAI *graph, char *mode)
         // gameDisplay(lvBoardGame);
         lnPositionStatus = whatGameStatus(lvBoardGame,lnCurrentPlayer);
 
-        //lnCurrentPlayer = (lnCurrentPlayer) % 2 + 1;
+        lnCurrentPlayer = (lnCurrentPlayer) % 2 + 1;
         
         lnMoveCounter++;
 

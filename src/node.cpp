@@ -112,7 +112,6 @@ string Node::calculateNewPositionValue(int pnColumnChosen, int pnCompteur) // pl
     }
     while (lnIndexLineCurrent < 5 && lwReturnString[lnIndexCharCurrent] != 48);
     
-    cout << lnIndexCharCurrent << endl;
     lwReturnString[lnIndexCharCurrent] = to_string(lnPlayer)[0];
     return lwReturnString;
 }
