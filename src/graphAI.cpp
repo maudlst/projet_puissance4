@@ -5,7 +5,7 @@ using namespace std;
 
 GraphAI::GraphAI()
 {
-
+    msGraphMap[msRoot->getPositionName()] = msRoot;
 }
 
 /*/////////////////////////////////////////////////////////////////////////////
@@ -223,23 +223,23 @@ But de la fonction :
 Entrées :
   psParent : Le père 
   pnColunm : La colonne qui va permettre de passer du père au fils
-  pwPositionValue : la valeur de la position du fils 
+  pwPositionRepresentation : la valeur de la position du fils 
 
 Sorties : 
   lsNodeChild : la structure Node du fils
 
 /////////////////////////////////////////////////////////////////////////////*/
-Node *GraphAI::appendChildToParent(Node *psParent, int pnColunm, string pwPositionValue)
+void GraphAI::appendChildToParent(string psParent, int pnColunm, string pwPositionRepresentation)
 {
-    psParent->addChild(pnColunm,pwPositionValue);
-    if(msGraphMap.find(pwPositionValue) == msGraphMap.end()) // Le fils n'existe pas dans le graphe
+    msGraphMap[psParent]->addChild(pnColunm, pwPositionRepresentation);
+    if(msGraphMap.find(pwPositionRepresentation) == msGraphMap.end()) // Le fils n'existe pas dans le graphe
     {
-        msGraphMap[pwPositionValue] = new Node(pwPositionValue);
-        return msGraphMap[pwPositionValue];
+        Node *n = new Node(pwPositionRepresentation);
+        msGraphMap[pwPositionRepresentation] = move(n);
+        // msGraphMap.insert(pair<string, Node *>(pwPositionRepresentation, move(n)));
     }
     else // Le fils existe déja
     {
-        return msGraphMap[pwPositionValue];
     }
 }
 
@@ -300,6 +300,6 @@ void GraphAI::deleteNodes()
 {
     for(auto it = msGraphMap.cbegin(); it != msGraphMap.cend(); ++it)
     {
-        delete(it->second);
+        free(it->second);
     }
 }

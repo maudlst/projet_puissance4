@@ -417,6 +417,7 @@ int calculateBestMove(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD])
     int lnRowOfPiece;
     bool lbIsPiecePlayed;
     int lnValuePosition;
+    printf("HEY\n");
     for(int liIndexColumn = 0; liIndexColumn < 5; liIndexColumn++)
     {
         std::tie(lbIsPiecePlayed, lnRowOfPiece) = play(pvBoardGame, liIndexColumn, cnIA); // joue temporairement le coup à tester
@@ -559,7 +560,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
             }
         }
     }
-
+    // Direction (bas_gauche -- haut_droite)
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[0][0], lvMemoEmpty[2][2], lvMemoPlayerTerritory[0][0], lvMemoPlayerTerritory[2][2]);
     if (lnDirectionValue >= 0)
     {
@@ -569,6 +570,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     {
         return cnMaxValueWhen4Piece;
     }
+    // Direction (gauche -- droite)
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[1][0], lvMemoEmpty[1][2], lvMemoPlayerTerritory[1][0], lvMemoPlayerTerritory[1][2]);
     if (lnDirectionValue >= 0)
     {
@@ -578,6 +580,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     {
         return cnMaxValueWhen4Piece;
     }
+    // Direction (haut_gauche -- bas_droite)
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[2][0], lvMemoEmpty[0][2], lvMemoPlayerTerritory[2][0], lvMemoPlayerTerritory[0][2]);
     if (lnDirectionValue >= 0)
     {
@@ -587,6 +590,7 @@ int calculatePositionValue(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], in
     {
         return cnMaxValueWhen4Piece;
     }
+    // Direction (haut -- bas)
     lnDirectionValue = calculateValueDirection(lvMemoEmpty[0][1], lvMemoEmpty[2][1], lvMemoPlayerTerritory[0][1], lvMemoPlayerTerritory[2][1]);
     if (lnDirectionValue >= 0)
     {
@@ -624,7 +628,7 @@ Sortie :
 int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1, int pnValuePT2)
 {
     int lnDirectionValue;
-    if ((pnValueEmpty1 + pnValueEmpty2 + pnValuePT1 + pnValuePT2) >= 3)
+    if ((pnValueEmpty1 + pnValueEmpty2 + pnValuePT1 + pnValuePT2) >= 3) // si dans la direction il y a de la place pour faire un puissance 4
     {
         lnDirectionValue = 1 + pnValuePT1 + pnValuePT2;
         if (lnDirectionValue >= 4)
@@ -636,9 +640,8 @@ int calculateValueDirection(int pnValueEmpty1, int pnValueEmpty2, int pnValuePT1
         else
             return cnValueOf1Piece;
     }
-    else 
+    else // il n'y a pas la place ;(
     {
-        printf("ERROR");
-        return 500; // erreur si l'algo exécute ce else
+        return 0;
     }
 }

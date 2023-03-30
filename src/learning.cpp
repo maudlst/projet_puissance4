@@ -16,7 +16,9 @@ void doGame(GraphAI *graph, char *mode)
     //vector<string *>::iterator lnEncounteredIterator;
     //lnEncounteredIterator = lvEncounteredPositions.begin();
 
-    Node *lsActual = graph->getRoot();
+    // Node *lsActual = graph->getRoot();
+    map<std::string, Node *>& lsGraphMap = graph->getGraphMap();
+    string lsActual = graph->getRoot()->getPositionName();
     
     int lvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD] = {{0}};
     int lnCurrentPlayer, lnSelectedColomn, lnRowPlayed, lnMoveCounter;
@@ -44,24 +46,26 @@ void doGame(GraphAI *graph, char *mode)
             { 
                 lnSelectedColomn = calculateBestMove(lvBoardGame);
             }
+            cout << "lsActual " << lsActual << endl;
             tie(lbIsPlayed,lnRowPlayed) = play(lvBoardGame,lnSelectedColomn, lnCurrentPlayer); 
         }
         cout << "Ceci est la colonne jouée " << lnSelectedColomn << endl;
-        string lwTempString = lsActual->calculateNewPositionValue(lnSelectedColomn, lnMoveCounter);
-        lsActual = graph->appendChildToParent(lsActual, lnSelectedColomn, move(lwTempString));
+        string lwNextNodeRepr = lsGraphMap[lsActual]->calculateNewPositionValue(lnSelectedColomn, lnMoveCounter);
+        graph->appendChildToParent(lsActual, lnSelectedColomn, lwNextNodeRepr);
+        lsActual = move(lwNextNodeRepr);
         // cout << "CC " << *lnEncounteredIterator << endl;
         //cout << "SIZE lvEncounteredPositions " << lvEncounteredPositions.size() << endl;
         // lvEncounteredPositions[lnMoveCounter] = lsActual->getPositionName();
         gameDisplay(lvBoardGame);
         //cout << "Le string : " << endl << Node::printPositionName(lsActual->getPositionName()) << endl;
         // lnEncounteredIterator = lvEncounteredPositions.insert(lnEncounteredIterator, lsActual->getPositionName());
-        string h = lsActual->getPositionName();
+        // string h = lsActual->getPositionName();
         //lvEncounteredPositions.push_back(&h);
         
         // gameDisplay(lvBoardGame);
         lnPositionStatus = whatGameStatus(lvBoardGame,lnCurrentPlayer);
 
-        lnCurrentPlayer = (lnCurrentPlayer) % 2 + 1;
+        //lnCurrentPlayer = (lnCurrentPlayer) % 2 + 1;
         
         lnMoveCounter++;
 
