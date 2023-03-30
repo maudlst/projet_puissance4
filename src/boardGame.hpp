@@ -50,6 +50,7 @@
 
 void gameDisplay(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD]);
 std::tuple<bool, int> play(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnColomnToPlay, int pnPlayer);
+int whichColumnHasBeenPlayed(int pvOldBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pvNewBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD]);
 
 enum gameStatus {gnGameNotFinished = 0, gnGameWon = 1, gnStaleMate = 2};
 gameStatus whatGameStatus(int pvBoardGame[cnSIZE_OF_BOARD][cnSIZE_OF_BOARD], int pnPlayer);
